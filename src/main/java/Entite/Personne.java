@@ -1,9 +1,11 @@
 package Entite;
 
 import CategorieEnum.Categorie;
+import java.io.Serializable;
 import java.text.Normalizer;
 
-public class Personne {
+public class Personne implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
     private String nom;
     private String prenom;

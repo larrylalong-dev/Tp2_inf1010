@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.service.ConnexionService;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,11 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import Entite.Personne;
-import com.example.demo.service.PersonneService;
-import com.example.demo.service.ConnexionService;
+import com.example.demo.service.AnnuaireServiceClient;
+import com.example.demo.service.ConnexionServiceClient;
 import CategorieEnum.Categorie;
 import com.example.demo.util.DataTransfer;
 import com.example.demo.util.SessionManager;
+import com.example.demo.util.CategorieUtil;
 import com.example.demo.util.AuthorizationManager;
 import com.example.demo.enums.CategorieDisplay;
 import com.example.demo.enums.DomaineActivite;
@@ -76,8 +78,8 @@ public class AjouterModifierMembreController {
     private PasswordField confirmerMotDePasseField;
 
     // Service pour accéder aux données
-    private PersonneService personneService;
-    private ConnexionService connexionService;
+    private AnnuaireServiceClient annuaireService;
+    private ConnexionServiceClient connexionService;
     private Personne membreAModifier; // Pour savoir si on est en mode modification
     private boolean modeModification = false;
     private boolean afficherChampsMotDePasse = true; // Pour gérer l'affichage des champs mot de passe
@@ -90,8 +92,8 @@ public class AjouterModifierMembreController {
         }
 
         // Initialiser les services
-        personneService = new PersonneService();
-        connexionService = new ConnexionService();
+        annuaireService = new AnnuaireServiceClient();
+        connexionService = new ConnexionServiceClient();
 
         // Mettre à jour l'affichage de connexion
         updateConnectionDisplay();
@@ -124,8 +126,9 @@ public class AjouterModifierMembreController {
         // Vérifier l'état de connexion dans la base de données
         Personne utilisateurConnecte = SessionManager.getInstance().getUtilisateurConnecte();
         if (utilisateurConnecte != null) {
-            ConnexionService connexionService = new ConnexionService();
-            if (!connexionService.verifierEtatConnexion(utilisateurConnecte.getId())) {
+            // Correction: utiliser le type ConnexionServiceClient
+            ConnexionServiceClient localConnexionService = new ConnexionServiceClient();
+            if (!localConnexionService.verifierEtatConnexion(utilisateurConnecte.getId())) {
                 // L'utilisateur a été déconnecté ailleurs, déconnecter la session locale
                 SessionManager.getInstance().deconnecter();
                 showAlert("Session expirée", "Votre session a expiré ou vous avez été déconnecté depuis un autre appareil.", Alert.AlertType.WARNING);
@@ -346,6 +349,12 @@ public class AjouterModifierMembreController {
 
     @FXML
     private void onEnregistrerClicked(ActionEvent event) {
+        // Vérifier la disponibilité du serveur avant toute action
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
+
         if (validateForm()) {
             try {
                 Personne personne = createPersonneFromForm();
@@ -355,7 +364,7 @@ public class AjouterModifierMembreController {
                     // Mode modification
                     personne.setId(membreAModifier.getId());
                     personne.setListeRouge(membreAModifier.isListeRouge()); // Préserver le statut liste rouge
-                    success = personneService.modifierMembre(personne);
+                    success = annuaireService.modifierMembre(personne);
 
                     if (success) {
                         showInfoMessage("Modification réussie", "Le membre a été modifié avec succès!");
@@ -366,7 +375,7 @@ public class AjouterModifierMembreController {
                 } else {
                     // Mode ajout
                     personne.setListeRouge(false); // Nouveau membre pas sur liste rouge par défaut
-                    success = personneService.ajouterMembre(personne);
+                    success = annuaireService.ajouterMembre(personne);
 
                     if (success) {
                         showInfoMessage("Ajout réussi", "Le membre a été ajouté avec succès!");
@@ -554,5 +563,10 @@ public class AjouterModifierMembreController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void navigateToServiceIndisponible() {
+        Node currentNode = nomTextField != null ? nomTextField : deconnexionButton;
+        NavigationHelper.navigateTo("service-indisponible.fxml", "Service Indisponible", currentNode);
     }
 }

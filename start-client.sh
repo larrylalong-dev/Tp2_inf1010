@@ -33,11 +33,12 @@ fi
 
 echo ""
 echo "🎨 Démarrage de l'interface graphique..."
+echo "   Connexion au serveur: localhost:1099"
 echo "   Si le serveur n'est pas accessible, une page d'erreur s'affichera"
 echo ""
 echo "═══════════════════════════════════════════════════════"
 echo ""
 
-# Lancer le client (application JavaFX)
-mvn javafx:run
+# Lancer le client (application JavaFX) avec configuration RMI
+mvn javafx:run -Djava.rmi.server.hostname=localhost
 

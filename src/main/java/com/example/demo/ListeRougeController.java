@@ -9,10 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import Entite.Personne;
-import com.example.demo.service.PersonneService;
-import com.example.demo.service.ConnexionService;
-import CategorieEnum.Categorie;
+import com.example.demo.service.AnnuaireServiceClient;
+import com.example.demo.service.ConnexionServiceClient; // ajout pour corriger l'erreur de symbole
 import com.example.demo.util.SessionManager;
+import com.example.demo.util.CategorieUtil;
 import com.example.demo.util.AuthorizationManager;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class ListeRougeController {
 
     @FXML
-    private ToggleGroup affichageToggleGroup;
+    private ToggleGroup affichageToggleGroup; // (Conservé si lié au FXML, sinon peut être retiré)
 
     @FXML
     private RadioButton tousRadioButton;
@@ -63,8 +63,7 @@ public class ListeRougeController {
     private Label infoLabel;
 
     // Service pour accéder aux données
-    private PersonneService personneService;
-    private ConnexionService connexionService;
+    private AnnuaireServiceClient annuaireService;
     private ObservableList<Personne> membresData;
     private List<Personne> tousLesMembres;
 
@@ -76,8 +75,14 @@ public class ListeRougeController {
         }
 
         // Initialiser les services
-        personneService = new PersonneService();
-        connexionService = new ConnexionService();
+        annuaireService = new AnnuaireServiceClient();
+
+        // Vérification disponibilité serveur avant toute action
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
+
         membresData = FXCollections.observableArrayList();
 
         // Configurer le tableau
@@ -106,9 +111,8 @@ public class ListeRougeController {
         // Vérifier l'état de connexion dans la base de données
         Personne utilisateurConnecte = SessionManager.getInstance().getUtilisateurConnecte();
         if (utilisateurConnecte != null) {
-            ConnexionService connexionService = new ConnexionService();
-            if (!connexionService.verifierEtatConnexion(utilisateurConnecte.getId())) {
-                // L'utilisateur a été déconnecté ailleurs, déconnecter la session locale
+            ConnexionServiceClient localConnexionService = new ConnexionServiceClient();
+            if (!localConnexionService.verifierEtatConnexion(utilisateurConnecte.getId())) {
                 SessionManager.getInstance().deconnecter();
                 showAlert("Session expirée", "Votre session a expiré ou vous avez été déconnecté depuis un autre appareil.", Alert.AlertType.WARNING);
                 redirectToLogin();
@@ -149,7 +153,7 @@ public class ListeRougeController {
         categorieColumn.setCellValueFactory(cellData -> {
             Personne personne = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(
-                personneService.categorieToString(personne.getCategorie())
+                CategorieUtil.categorieToString(personne.getCategorie())
             );
         });
         courrielColumn.setCellValueFactory(new PropertyValueFactory<>("adresseCourriel"));
@@ -200,8 +204,13 @@ public class ListeRougeController {
     }
 
     private void chargerTousLesMembres() {
+        // Vérifier serveur avant de charger
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
         try {
-            tousLesMembres = personneService.getAllMembres();
+            tousLesMembres = annuaireService.getAllMembres();
         } catch (Exception e) {
             showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + e.getMessage());
             tousLesMembres = FXCollections.observableArrayList();
@@ -231,7 +240,7 @@ public class ListeRougeController {
     private void afficherListeRougeUniquement() {
         List<Personne> membresListeRouge = tousLesMembres.stream()
             .filter(Personne::isListeRouge)
-            .collect(Collectors.toList());
+            .toList(); // simplification
 
         membresData.clear();
         membresData.addAll(membresListeRouge);
@@ -275,22 +284,24 @@ public class ListeRougeController {
 
     @FXML
     private void onAjouterListeRougeClicked(ActionEvent event) {
+        // Vérifier serveur
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
         Personne selectedMembre = membresTableView.getSelectionModel().getSelectedItem();
         if (selectedMembre == null) {
             showWarningMessage("Aucune sélection", "Veuillez sélectionner un membre à ajouter à la liste rouge.");
             return;
         }
-
         if (selectedMembre.isListeRouge()) {
             showWarningMessage("Déjà en liste rouge", "Ce membre est déjà dans la liste rouge.");
             return;
         }
-
         if (showConfirmationDialog("Ajouter à la liste rouge",
             "Êtes-vous sûr de vouloir ajouter " + selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " à la liste rouge ?")) {
-
             try {
-                boolean success = personneService.ajouterAListeRouge((int) selectedMembre.getId());
+                boolean success = annuaireService.ajouterAListeRouge((int) selectedMembre.getId());
                 if (success) {
                     showInfoMessage("Succès", selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " a été ajouté à la liste rouge.");
                     rafraichirDonnees();
@@ -305,22 +316,24 @@ public class ListeRougeController {
 
     @FXML
     private void onRetirerListeRougeClicked(ActionEvent event) {
+        // Vérifier serveur
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
         Personne selectedMembre = membresTableView.getSelectionModel().getSelectedItem();
         if (selectedMembre == null) {
             showWarningMessage("Aucune sélection", "Veuillez sélectionner un membre à retirer de la liste rouge.");
             return;
         }
-
         if (!selectedMembre.isListeRouge()) {
             showWarningMessage("Pas en liste rouge", "Ce membre n'est pas dans la liste rouge.");
             return;
         }
-
         if (showConfirmationDialog("Retirer de la liste rouge",
             "Êtes-vous sûr de vouloir retirer " + selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " de la liste rouge ?")) {
-
             try {
-                boolean success = personneService.retirerDeListeRouge((int) selectedMembre.getId());
+                boolean success = annuaireService.retirerDeListeRouge((int) selectedMembre.getId());
                 if (success) {
                     showInfoMessage("Succès", selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " a été retiré de la liste rouge.");
                     rafraichirDonnees();
@@ -340,6 +353,11 @@ public class ListeRougeController {
     }
 
     private void rafraichirDonnees() {
+        // Vérifier serveur
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
         chargerTousLesMembres();
         if (tousRadioButton.isSelected()) {
             afficherTousLesMembres();
@@ -366,7 +384,7 @@ public class ListeRougeController {
         showInfoMessage("Détails du membre",
             "Nom: " + selectedMembre.getNom() + "\n" +
             "Prénom: " + selectedMembre.getPrenom() + "\n" +
-            "Catégorie: " + personneService.categorieToString(selectedMembre.getCategorie()) + "\n" +
+            "Catégorie: " + CategorieUtil.categorieToString(selectedMembre.getCategorie()) + "\n" +
             "Email: " + selectedMembre.getAdresseCourriel() + "\n" +
             "Téléphone: " + (selectedMembre.getTelephone() != null ? selectedMembre.getTelephone() : "N/A") + "\n" +
             "Matricule: " + (selectedMembre.getMatricule() != null ? selectedMembre.getMatricule() : "N/A") + "\n" +
@@ -404,5 +422,10 @@ public class ListeRougeController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         return alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK;
+    }
+
+    private void navigateToServiceIndisponible() {
+        Node currentNode = tousRadioButton != null ? tousRadioButton : membresTableView;
+        NavigationHelper.navigateTo("service-indisponible.fxml", "Service Indisponible", currentNode);
     }
 }

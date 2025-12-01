@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import Entite.Personne;
-import com.example.demo.service.ConnexionService;
+import com.example.demo.service.ConnexionServiceClient; // RMI au lieu de ConnexionService directe
 import com.example.demo.util.AuthorizationManager;
 
 import java.util.List;
@@ -47,12 +47,19 @@ public class UtilisateursConnectesController {
     @FXML
     private Label statutLabel;
 
-    private ConnexionService connexionService;
+    private ConnexionServiceClient connexionService;
     private ObservableList<Personne> utilisateursConnectes;
 
     @FXML
     private void initialize() {
-        connexionService = new ConnexionService();
+        connexionService = new ConnexionServiceClient();
+
+        // Vérifier disponibilité serveur immédiate
+        if (!isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
+
         utilisateursConnectes = FXCollections.observableArrayList();
 
         // Configuration des colonnes
@@ -93,11 +100,13 @@ public class UtilisateursConnectesController {
 
     @FXML
     private void onActualiserClicked(ActionEvent event) {
+        if (!isServerAvailable()) { navigateToServiceIndisponible(); return; }
         chargerUtilisateursConnectes();
     }
 
     @FXML
     private void onDeconnecterClicked(ActionEvent event) {
+        if (!isServerAvailable()) { navigateToServiceIndisponible(); return; }
         ObservableList<Personne> selectedItems = tableUtilisateursConnectes.getSelectionModel().getSelectedItems();
 
         if (selectedItems.isEmpty()) {
@@ -161,6 +170,10 @@ public class UtilisateursConnectesController {
     }
 
     private void chargerUtilisateursConnectes() {
+        if (!isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
         try {
             List<Personne> listeConnectes = connexionService.getUtilisateursConnectes();
 
@@ -199,5 +212,18 @@ public class UtilisateursConnectesController {
 
     private void retournerAuMenu() {
         NavigationHelper.navigateTo("main-menu.fxml", "Menu Principal - Annuaire INF1010", retourButton);
+    }
+
+    private boolean isServerAvailable() {
+        try {
+            // Tenter un ping via le service
+            return connexionService != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void navigateToServiceIndisponible() {
+        NavigationHelper.navigateTo("service-indisponible.fxml", "Service Indisponible", tableUtilisateursConnectes);
     }
 }

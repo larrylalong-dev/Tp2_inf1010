@@ -11,8 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import Entite.Personne;
-import com.example.demo.service.PersonneService;
-import com.example.demo.service.ConnexionService;
+import com.example.demo.service.AnnuaireServiceClient;
+import com.example.demo.service.ConnexionServiceClient;
 import com.example.demo.util.SessionManager;
 import CategorieEnum.Categorie;
 
@@ -30,13 +30,13 @@ public class LoginController {
     @FXML
     private Label errorLabel;
 
-    // Service pour l'authentification
-    private PersonneService personneService;
-    private ConnexionService connexionService;
+    // Services clients pour la communication RMI
+    private AnnuaireServiceClient annuaireService;
+    private ConnexionServiceClient connexionService;
 
     public void initialize() {
-        personneService = new PersonneService();
-        connexionService = new ConnexionService();
+        annuaireService = new AnnuaireServiceClient();
+        connexionService = new ConnexionServiceClient();
         errorLabel.setVisible(false);
     }
 
@@ -50,7 +50,13 @@ public class LoginController {
             return;
         }
 
-        // Authentification avec la base de données uniquement
+        // Vérifier la disponibilité du serveur avant de continuer
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
+
+        // Authentification via RMI
         try {
             authenticateUser(username, password);
         } catch (Exception e) {
@@ -61,7 +67,7 @@ public class LoginController {
     private boolean authenticateUser(String username, String password) {
         try {
             // Récupérer tous les membres pour chercher celui qui correspond
-            List<Personne> tousLesMembres = personneService.getAllMembres();
+            List<Personne> tousLesMembres = annuaireService.getAllMembres();
 
             for (Personne personne : tousLesMembres) {
                 // Vérifier si le nom correspond au username et le mot de passe correspond
@@ -139,6 +145,27 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
             showError("Erreur lors du chargement du menu principal.");
+        }
+    }
+
+    private void navigateToServiceIndisponible() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("service-indisponible.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+
+            // Préserver les dimensions actuelles
+            double currentWidth = stage.getWidth();
+            double currentHeight = stage.getHeight();
+
+            Scene scene = new Scene(root, currentWidth, currentHeight);
+            stage.setScene(scene);
+            stage.setTitle("Service Indisponible");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("❌ Serveur indisponible. Veuillez démarrer le serveur et réessayer.");
         }
     }
 }

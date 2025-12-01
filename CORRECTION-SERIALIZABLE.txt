@@ -1,0 +1,85 @@
+═══════════════════════════════════════════════════════════════════
+   ✅ CORRECTION - NotSerializableException
+═══════════════════════════════════════════════════════════════════
+
+PROBLÈME:
+   java.io.NotSerializableException: Entite.Personne
+
+CAUSE:
+   En RMI, tous les objets transmis entre client et serveur doivent
+   être "sérialisables" (convertibles en bytes pour le réseau).
+
+   La classe Personne n'implémentait pas java.io.Serializable.
+
+SOLUTION APPLIQUÉE:
+   ✅ Ajout de "implements Serializable" à la classe Personne
+   ✅ Ajout de serialVersionUID = 1L
+
+═══════════════════════════════════════════════════════════════════
+
+FICHIER MODIFIÉ:
+
+   📄 src/main/java/Entite/Personne.java
+
+   AVANT:
+   public class Personne {
+
+   APRÈS:
+   public class Personne implements Serializable {
+       private static final long serialVersionUID = 1L;
+
+═══════════════════════════════════════════════════════════════════
+
+PROCHAINES ÉTAPES:
+
+1️⃣  RECOMPILER LE PROJET
+
+   Dans IntelliJ IDEA:
+   Build → Rebuild Project
+
+2️⃣  REDÉMARRER LE SERVEUR
+
+   - Arrêtez le serveur actuel (bouton Stop rouge)
+   - Relancez: Run 'ServerLauncher.main()'
+   - ✅ Attendez: "[SERVER] Serveur RMI prêt"
+
+3️⃣  REDÉMARRER LE CLIENT
+
+   - Arrêtez le client actuel
+   - Relancez: Run 'HelloApplication.main()'
+   - ✅ L'interface s'ouvre
+
+4️⃣  TESTER
+
+   - Connectez-vous avec vos identifiants
+   - ✅ Plus d'erreur "NotSerializableException"!
+   - ✅ La liste des membres s'affiche correctement
+
+═══════════════════════════════════════════════════════════════════
+
+POURQUOI serialVersionUID?
+
+   Le serialVersionUID est un identifiant de version pour la classe.
+   Il garantit que le client et le serveur utilisent la même version
+   de la classe Personne lors de la sérialisation/désérialisation.
+
+═══════════════════════════════════════════════════════════════════
+
+VÉRIFICATION:
+
+   Le serveur devrait afficher:
+   - Pas d'erreur "NotSerializableException"
+   - Requêtes traitées normalement
+
+   Le client devrait afficher:
+   - Liste des membres correctement chargée
+   - Pas d'erreur "error unmarshalling return"
+
+═══════════════════════════════════════════════════════════════════
+
+C'EST CORRIGÉ! 🎉
+
+Recompilez et redémarrez serveur + client pour appliquer les changements.
+
+═══════════════════════════════════════════════════════════════════
+

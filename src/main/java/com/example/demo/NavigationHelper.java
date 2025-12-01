@@ -7,9 +7,33 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import com.example.demo.service.AnnuaireServiceClient;
+
 import java.io.IOException;
 
 public class NavigationHelper {
+
+    /**
+     * Vérifie si le serveur est disponible et navigue vers la page appropriée
+     * @return true si le serveur est disponible, false sinon
+     */
+    public static boolean checkServerAndNavigate(Node currentNode) {
+        AnnuaireServiceClient service = new AnnuaireServiceClient();
+        if (!service.isServerAvailable()) {
+            navigateTo("service-indisponible.fxml", "Service Indisponible", currentNode);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Navigation avec vérification automatique du serveur
+     */
+    public static void navigateToWithServerCheck(String fxmlFile, String title, Node currentNode) {
+        if (checkServerAndNavigate(currentNode)) {
+            navigateTo(fxmlFile, title, currentNode);
+        }
+    }
 
     public static void navigateTo(String fxmlFile, String title, Node currentNode) {
         try {

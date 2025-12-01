@@ -9,11 +9,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import Entite.Personne;
-import com.example.demo.service.PersonneService;
+import com.example.demo.service.AnnuaireServiceClient;
 import CategorieEnum.Categorie;
 import com.example.demo.util.DataTransfer;
 import com.example.demo.util.AuthorizationManager;
 import com.example.demo.util.SessionManager;
+import com.example.demo.util.CategorieUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,14 +68,21 @@ public class ListeProfesseursController {
     private Button exporterButton;
 
     // Service pour accéder aux données
-    private PersonneService personneService;
+    private AnnuaireServiceClient annuaireService;
     private ObservableList<Personne> professeursData;
     private List<Personne> tousProfesseurs;
 
     @FXML
     private void initialize() {
         // Initialiser le service
-        personneService = new PersonneService();
+        annuaireService = new AnnuaireServiceClient();
+
+        // Vérifier disponibilité serveur immédiate
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
+
         professeursData = FXCollections.observableArrayList();
 
         // Appliquer les restrictions d'accès selon le rôle de l'utilisateur
@@ -100,7 +108,7 @@ public class ListeProfesseursController {
         categorieColumn.setCellValueFactory(cellData -> {
             Personne personne = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(
-                personneService.categorieToString(personne.getCategorie())
+                CategorieUtil.categorieToString(personne.getCategorie())
             );
         });
         courrielColumn.setCellValueFactory(new PropertyValueFactory<>("adresseCourriel"));
@@ -148,10 +156,15 @@ public class ListeProfesseursController {
     }
 
     private void chargerTousProfesseurs() {
+        // Vérifier serveur avant de charger
+        if (!annuaireService.isServerAvailable()) {
+            navigateToServiceIndisponible();
+            return;
+        }
         try {
             // Charger tous les professeurs et auxiliaires
-            List<Personne> professeurs = personneService.getMembresParCategorie(Categorie.professeur);
-            List<Personne> auxiliaires = personneService.getMembresParCategorie(Categorie.auxiliaire);
+            List<Personne> professeurs = annuaireService.getMembresParCategorie(Categorie.professeur);
+            List<Personne> auxiliaires = annuaireService.getMembresParCategorie(Categorie.auxiliaire);
 
             tousProfesseurs = FXCollections.observableArrayList();
             tousProfesseurs.addAll(professeurs);
@@ -220,6 +233,7 @@ public class ListeProfesseursController {
 
     @FXML
     private void onRechercherClicked(ActionEvent event) {
+        if (!annuaireService.isServerAvailable()) { navigateToServiceIndisponible(); return; }
         String domaine = domaineComboBox.getSelectionModel().getSelectedItem();
 
         if (domainePersonnaliseTextField.isVisible() && !domainePersonnaliseTextField.getText().trim().isEmpty()) {
@@ -235,6 +249,7 @@ public class ListeProfesseursController {
 
     @FXML
     private void onActualiserClicked(ActionEvent event) {
+        if (!annuaireService.isServerAvailable()) { navigateToServiceIndisponible(); return; }
         chargerTousProfesseurs();
         String selectedDomaine = domaineComboBox.getSelectionModel().getSelectedItem();
 
@@ -259,7 +274,7 @@ public class ListeProfesseursController {
         showInfoMessage("Détails du professeur",
             "Nom: " + selectedProfesseur.getNom() + "\n" +
             "Prénom: " + selectedProfesseur.getPrenom() + "\n" +
-            "Catégorie: " + personneService.categorieToString(selectedProfesseur.getCategorie()) + "\n" +
+            "Catégorie: " + CategorieUtil.categorieToString(selectedProfesseur.getCategorie()) + "\n" +
             "Email: " + selectedProfesseur.getAdresseCourriel() + "\n" +
             "Téléphone: " + (selectedProfesseur.getTelephone() != null ? selectedProfesseur.getTelephone() : "N/A") + "\n" +
             "Domaine: " + (selectedProfesseur.getDomaineActivite() != null ? selectedProfesseur.getDomaineActivite() : "N/A") + "\n" +
@@ -268,6 +283,7 @@ public class ListeProfesseursController {
 
     @FXML
     private void onModifierClicked(ActionEvent event) {
+        if (!annuaireService.isServerAvailable()) { navigateToServiceIndisponible(); return; }
         Personne selectedProfesseur = professeursTableView.getSelectionModel().getSelectedItem();
         if (selectedProfesseur == null) {
             showWarningMessage("Aucune sélection", "Veuillez sélectionner un professeur à modifier.");
@@ -333,5 +349,9 @@ public class ListeProfesseursController {
                 exporterButton.setStyle("-fx-background-color: #cccccc; -fx-text-fill: #666666; -fx-opacity: 0.6;");
             }
         }
+    }
+
+    private void navigateToServiceIndisponible() {
+        NavigationHelper.navigateTo("service-indisponible.fxml", "Service Indisponible", professeursTableView);
     }
 }

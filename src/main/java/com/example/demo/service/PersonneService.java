@@ -9,16 +9,30 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.example.demo.client.ServerConnectionManager;
+import com.example.demo.server.RemoteAnnuaire;
+
 /**
  * Service class pour gérer les opérations sur les personnes
- * Fait le pont entre les contrôleurs JavaFX et la couche DAO
+ * Fait le pont entre les contrôleurs JavaFX et soit la couche DAO locale,
+ * soit le service RMI distant si disponible.
  */
 public class PersonneService {
 
     private final PersonneDAO personneDAO;
+    private RemoteAnnuaire remote;
 
     public PersonneService() {
         this.personneDAO = new PersonneDAOImpl();
+        // Essayer d'établir une connexion RMI
+        ServerConnectionManager scm = ServerConnectionManager.getInstance();
+        if (scm.isServerAvailable() && scm.connect()) {
+            this.remote = scm.getStub();
+        }
+    }
+
+    private boolean useRemote() {
+        return this.remote != null;
     }
 
     /**
@@ -27,8 +41,11 @@ public class PersonneService {
      */
     public List<Personne> getAllMembres() {
         try {
+            if (useRemote()) {
+                return remote.getAll();
+            }
             return personneDAO.getAll();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la récupération de tous les membres: " + e.getMessage());
             return new ArrayList<>();
         }
@@ -41,8 +58,11 @@ public class PersonneService {
      */
     public List<Personne> getMembresParCategorie(Categorie categorie) {
         try {
+            if (useRemote()) {
+                return remote.getMembresParCategorie(categorie);
+            }
             return personneDAO.getMembresParCategorie(categorie);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la récupération des membres par catégorie: " + e.getMessage());
             return new ArrayList<>();
         }
@@ -55,9 +75,12 @@ public class PersonneService {
      */
     public boolean ajouterMembre(Personne personne) {
         try {
+            if (useRemote()) {
+                return remote.ajouterMembre(personne);
+            }
             int result = personneDAO.ajouterMembre(personne);
             return result > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de l'ajout du membre: " + e.getMessage());
             return false;
         }
@@ -70,9 +93,12 @@ public class PersonneService {
      */
     public boolean modifierMembre(Personne personne) {
         try {
+            if (useRemote()) {
+                return remote.modifierMembre(personne);
+            }
             int result = personneDAO.modifierMembre(personne);
             return result > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la modification du membre: " + e.getMessage());
             return false;
         }
@@ -85,9 +111,12 @@ public class PersonneService {
      */
     public boolean supprimerMembre(Personne personne) {
         try {
+            if (useRemote()) {
+                return remote.supprimerMembre(personne);
+            }
             int result = personneDAO.supprimerMembre(personne);
             return result > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la suppression du membre: " + e.getMessage());
             return false;
         }
@@ -100,8 +129,11 @@ public class PersonneService {
      */
     public Personne rechercherUnmembre(Personne personne) {
         try {
+            if (useRemote()) {
+                return remote.rechercherUnmembre(personne);
+            }
             return personneDAO.rechercherUnmembre(personne);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la recherche du membre: " + e.getMessage());
             return null;
         }
@@ -114,8 +146,11 @@ public class PersonneService {
      */
     public Personne getMembreById(int id) {
         try {
+            if (useRemote()) {
+                return remote.getMembreById(id);
+            }
             return personneDAO.getMembreById(id);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la récupération du membre par ID: " + e.getMessage());
             return null;
         }
@@ -128,9 +163,12 @@ public class PersonneService {
      */
     public boolean ajouterAListeRouge(int id) {
         try {
+            if (useRemote()) {
+                return remote.ajouterAListeRouge(id);
+            }
             int result = personneDAO.gererListeRouge(id, "oui");
             return result > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de l'ajout à la liste rouge: " + e.getMessage());
             return false;
         }
@@ -143,9 +181,12 @@ public class PersonneService {
      */
     public boolean retirerDeListeRouge(int id) {
         try {
+            if (useRemote()) {
+                return remote.retirerDeListeRouge(id);
+            }
             int result = personneDAO.gererListeRouge(id, "non");
             return result >= 0; // 0 peut être retourné pour "retirer"
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors du retrait de la liste rouge: " + e.getMessage());
             return false;
         }
@@ -159,10 +200,13 @@ public class PersonneService {
      */
     public int gererListeRouge(int identifiant, String metSurLrouge) {
         try {
+            if (useRemote()) {
+                return remote.gererListeRouge(identifiant, metSurLrouge);
+            }
             return personneDAO.gererListeRouge(identifiant, metSurLrouge);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la gestion de la liste rouge: " + e.getMessage());
-            return -1;
+            return 0;
         }
     }
 
@@ -173,8 +217,11 @@ public class PersonneService {
      */
     public List<Personne> getProfesseursParDomaine(int domaine) {
         try {
+            if (useRemote()) {
+                return remote.getProfesseursParDomaine(domaine);
+            }
             return personneDAO.getProfesseursParDomaine(domaine);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Erreur lors de la récupération des professeurs par domaine: " + e.getMessage());
             return new ArrayList<>();
         }

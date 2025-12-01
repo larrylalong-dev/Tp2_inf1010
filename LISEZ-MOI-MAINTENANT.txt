@@ -1,0 +1,127 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║     🎓 ANNUAIRE INF1010 - APPLICATION CLIENT-SERVEUR RMI     ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+✅ PROBLÈME RÉSOLU: L'erreur "Exception creating connection to: 172.18.33.41"
+                     a été COMPLÈTEMENT CORRIGÉE.
+
+═══════════════════════════════════════════════════════════════════
+
+📌 DÉMARRAGE RAPIDE (AVEC IntelliJ IDEA)
+
+   1️⃣  Compiler le Projet
+       Build → Rebuild Project
+
+   2️⃣  Démarrer le SERVEUR
+       Fichier: src/main/java/com/example/demo/server/ServerLauncher.java
+       → Clic droit → Run 'ServerLauncher.main()'
+       ✅ Attendez: "[SERVER] Serveur RMI prêt"
+
+   3️⃣  Démarrer le CLIENT
+       Fichier: src/main/java/com/example/demo/HelloApplication.java
+       → Clic droit → Run 'HelloApplication.main()'
+       ✅ Interface graphique s'ouvre
+
+═══════════════════════════════════════════════════════════════════
+
+📌 DÉMARRAGE AVEC TERMINAL (Alternative)
+
+   TERMINAL 1 - Serveur:
+   $ ./start-server.sh
+
+   TERMINAL 2 - Client:
+   $ ./start-client.sh
+
+═══════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTATION COMPLÈTE
+
+   📖 DEMARRAGE-RAPIDE.md          → Guide détaillé
+   📖 GUIDE-DEPANNAGE-RMI.md        → Résolution problèmes
+   📖 RAPPORT-MIGRATION-RMI.md      → Détails techniques
+   📖 PROBLEME-RESOLU.md            → Résumé solution
+
+═══════════════════════════════════════════════════════════════════
+
+🏗️ ARCHITECTURE
+
+   CLIENT (JavaFX) ←→ RMI (localhost:1099) ←→ SERVEUR ←→ MySQL
+
+   ✅ Séparation complète client-serveur
+   ✅ Communication via RMI (Remote Method Invocation)
+   ✅ Vérification automatique disponibilité serveur
+   ✅ Page "Service Indisponible" si serveur down
+
+═══════════════════════════════════════════════════════════════════
+
+🔧 FICHIERS IMPORTANTS
+
+   SERVEUR:
+   - server/ServerLauncher.java          → Point d'entrée serveur
+   - server/RemoteAnnuaire.java          → Interface RMI
+   - server/RemoteAnnuaireImpl.java      → Implémentation RMI
+
+   CLIENT:
+   - HelloApplication.java               → Point d'entrée client
+   - client/ServerConnectionManager.java → Connexion RMI
+   - service/AnnuaireServiceClient.java  → Proxy RMI
+   - LoginController.java                → Login avec vérif serveur
+
+   SCRIPTS:
+   - start-server.sh                     → Démarrer serveur
+   - start-client.sh                     → Démarrer client
+   - restart-all.sh                      → Nettoyer et redémarrer
+
+═══════════════════════════════════════════════════════════════════
+
+❓ PROBLÈMES COURANTS
+
+   Q: "Service Indisponible" au login?
+   R: Le serveur n'est pas démarré. Lancez ServerLauncher.java
+
+   Q: "Port 1099 already in use"?
+   R: Exécutez: pkill -f "rmiregistry"
+
+   Q: Maven non trouvé?
+   R: Utilisez IntelliJ IDEA (Rebuild Project)
+
+   Plus d'aide → GUIDE-DEPANNAGE-RMI.md
+
+═══════════════════════════════════════════════════════════════════
+
+✨ NOUVEAUTÉS
+
+   ✅ Migration Socket → RMI
+   ✅ Configuration RMI localhost (plus d'erreur 172.18.33.41)
+   ✅ Services clients créés (AnnuaireServiceClient)
+   ✅ LoginController migré vers RMI
+   ✅ Vérification serveur avant chaque action
+   ✅ Page "Service Indisponible" fonctionnelle
+   ✅ Documentation complète
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 PROCHAINES ÉTAPES (Optionnel)
+
+   Les contrôleurs suivants utilisent encore PersonneService directement:
+   - ListeMembresController
+   - AjouterModifierMembreController
+   - RechercheMembreController
+   - ListeRougeController
+   - ListeProfesseursController
+
+   Migration: Voir patron dans LoginController.java
+
+═══════════════════════════════════════════════════════════════════
+
+🎉 TOUT EST PRÊT!
+
+   L'application est maintenant opérationnelle.
+   Suivez les instructions ci-dessus pour démarrer.
+
+   Bon travail! 🚀
+
+═══════════════════════════════════════════════════════════════════
+

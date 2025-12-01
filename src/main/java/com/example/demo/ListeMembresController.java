@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.service.ConnexionServiceClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,11 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import Entite.Personne;
-import com.example.demo.service.PersonneService;
-import com.example.demo.service.ConnexionService;
+import com.example.demo.service.AnnuaireServiceClient;
 import CategorieEnum.Categorie;
 import com.example.demo.util.DataTransfer;
 import com.example.demo.util.SessionManager;
+import com.example.demo.util.CategorieUtil;
 import com.example.demo.util.AuthorizationManager;
 
 import java.util.List;
@@ -77,8 +78,8 @@ public class ListeMembresController {
     private Button retirerListeRougeButton;
 
     // Service pour accéder aux données
-    private PersonneService personneService;
-    private ConnexionService connexionService;
+    private AnnuaireServiceClient annuaireService;
+    private ConnexionServiceClient connexionService;
     private ObservableList<Personne> membresData;
     private ObservableList<Personne> tousLesMembres;
 
@@ -96,8 +97,8 @@ public class ListeMembresController {
         applyAccessRestrictions();
 
         // Initialiser les services
-        personneService = new PersonneService();
-        connexionService = new ConnexionService();
+        annuaireService = new AnnuaireServiceClient();
+        connexionService = new ConnexionServiceClient();
         membresData = FXCollections.observableArrayList();
 
         // Configurer les colonnes du tableau
@@ -123,8 +124,8 @@ public class ListeMembresController {
         // Vérifier l'état de connexion dans la base de données
         Personne utilisateurConnecte = SessionManager.getInstance().getUtilisateurConnecte();
         if (utilisateurConnecte != null) {
-            ConnexionService connexionService = new ConnexionService();
-            if (!connexionService.verifierEtatConnexion(utilisateurConnecte.getId())) {
+            ConnexionServiceClient localConnexionService = new ConnexionServiceClient(); // correction du type
+            if (!localConnexionService.verifierEtatConnexion(utilisateurConnecte.getId())) {
                 // L'utilisateur a été déconnecté ailleurs, déconnecter la session locale
                 SessionManager.getInstance().deconnecter();
                 showAlert("Session expirée", "Votre session a expiré ou vous avez été déconnecté depuis un autre appareil.", Alert.AlertType.WARNING);
@@ -212,7 +213,7 @@ public class ListeMembresController {
         categorieColumn.setCellValueFactory(cellData -> {
             Personne personne = cellData.getValue();
             return new javafx.beans.property.SimpleStringProperty(
-                personneService.categorieToString(personne.getCategorie())
+                CategorieUtil.categorieToString(personne.getCategorie())
             );
         });
         matriculeColumn.setCellValueFactory(new PropertyValueFactory<>("matricule"));
@@ -258,7 +259,7 @@ public class ListeMembresController {
 
     private void chargerTousLesMembres() {
         try {
-            List<Personne> membres = personneService.getAllMembres();
+            List<Personne> membres = annuaireService.getAllMembres();
             tousLesMembres = FXCollections.observableArrayList(membres);
             membresData.clear();
             membresData.addAll(tousLesMembres);
@@ -272,14 +273,13 @@ public class ListeMembresController {
     private void filtrerParCategorie(String categorieStr) {
         try {
             List<Personne> membresFiltres;
-
             if ("Toutes les catégories".equals(categorieStr)) {
                 membresFiltres = tousLesMembres;
             } else {
-                Categorie categorie = personneService.stringToCategorie(categorieStr);
+                Categorie categorie = CategorieUtil.stringToCategorie(categorieStr);
                 membresFiltres = tousLesMembres.stream()
                     .filter(p -> p.getCategorie() == categorie)
-                    .collect(Collectors.toList());
+                    .toList(); // simplification
             }
 
             membresData.clear();
@@ -325,9 +325,9 @@ public class ListeMembresController {
 
     private void chargerMembresParCategorie(String categorieStr) {
         try {
-            Categorie categorie = personneService.stringToCategorie(categorieStr);
+            Categorie categorie = CategorieUtil.stringToCategorie(categorieStr);
             if (categorie != null) {
-                List<Personne> membres = personneService.getMembresParCategorie(categorie);
+                List<Personne> membres = annuaireService.getMembresParCategorie(categorie);
                 membresData.clear();
                 membresData.addAll(membres);
                 updateCompteur(membres.size(), categorieStr);
@@ -345,6 +345,7 @@ public class ListeMembresController {
 
     @FXML
     private void onActualiserClicked(ActionEvent event) {
+        if (!annuaireService.isServerAvailable()) { navigateToServiceIndisponible(); return; }
         String selectedCategory = categorieComboBox.getSelectionModel().getSelectedItem();
         if ("Toutes les catégories".equals(selectedCategory)) {
             chargerTousLesMembres();
@@ -356,6 +357,7 @@ public class ListeMembresController {
 
     @FXML
     private void onModifierClicked(ActionEvent event) {
+        if (!annuaireService.isServerAvailable()) { navigateToServiceIndisponible(); return; }
         if (!AuthorizationManager.getInstance().isAdministrator()) {
             AuthorizationManager.getInstance().showAccessDeniedMessage();
             return;
@@ -374,6 +376,7 @@ public class ListeMembresController {
 
     @FXML
     private void onSupprimerClicked(ActionEvent event) {
+        if (!annuaireService.isServerAvailable()) { navigateToServiceIndisponible(); return; }
         if (!AuthorizationManager.getInstance().isAdministrator()) {
             AuthorizationManager.getInstance().showAccessDeniedMessage();
             return;
@@ -389,7 +392,7 @@ public class ListeMembresController {
             "Êtes-vous sûr de vouloir supprimer " + selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " ?")) {
 
             try {
-                boolean success = personneService.supprimerMembre(selectedMembre);
+                boolean success = annuaireService.supprimerMembre(selectedMembre); // cast (int) retiré si getId() retourne int
                 if (success) {
                     showInfoMessage("Suppression réussie", "Le membre a été supprimé avec succès.");
                     onActualiserClicked(event); // Rafraîchir la liste
@@ -404,6 +407,7 @@ public class ListeMembresController {
 
     @FXML
     private void onAjouterListeRougeClicked(ActionEvent event) {
+        if (!annuaireService.isServerAvailable()) { navigateToServiceIndisponible(); return; }
         if (!AuthorizationManager.getInstance().isAdministrator()) {
             AuthorizationManager.getInstance().showAccessDeniedMessage();
             return;
@@ -424,7 +428,7 @@ public class ListeMembresController {
             "Êtes-vous sûr de vouloir ajouter " + selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " à la liste rouge ?")) {
 
             try {
-                boolean success = personneService.ajouterAListeRouge((int) selectedMembre.getId());
+                boolean success = annuaireService.ajouterAListeRouge(selectedMembre.getId()); // cast redondant retiré
                 if (success) {
                     showInfoMessage("Succès", selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " a été ajouté à la liste rouge.");
                     rafraichirDonnees();
@@ -459,7 +463,7 @@ public class ListeMembresController {
             "Êtes-vous sûr de vouloir retirer " + selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " de la liste rouge ?")) {
 
             try {
-                boolean success = personneService.retirerDeListeRouge((int) selectedMembre.getId());
+                boolean success = annuaireService.retirerDeListeRouge(selectedMembre.getId());
                 if (success) {
                     showInfoMessage("Succès", selectedMembre.getNom() + " " + selectedMembre.getPrenom() + " a été retiré de la liste rouge.");
                     rafraichirDonnees();
@@ -467,7 +471,8 @@ public class ListeMembresController {
                     showErrorMessage("Erreur", "Impossible de retirer le membre de la liste rouge.");
                 }
             } catch (Exception e) {
-                showErrorMessage("Erreur", "Erreur lors du retrait de la liste rouge : " + e.getMessage());
+                // Serveur non disponible → redirection sans alert
+                navigateToServiceIndisponible();
             }
         }
     }
@@ -517,5 +522,11 @@ public class ListeMembresController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         return alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK;
+    }
+
+    private void navigateToServiceIndisponible() {
+        Node currentNode = deconnexionButton != null ? deconnexionButton :
+                          (retourConnexionButton != null ? retourConnexionButton : membresTableView);
+        NavigationHelper.navigateTo("service-indisponible.fxml", "Service Indisponible", currentNode);
     }
 }

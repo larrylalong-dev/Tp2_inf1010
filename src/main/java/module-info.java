@@ -3,8 +3,8 @@ module com.example.demo {
     requires javafx.fxml;
     requires java.sql;
     requires mysql.connector.j;
-    //requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.rmi;
 
     opens com.example.demo to javafx.fxml;
     opens com.example.demo.dao to javafx.fxml;

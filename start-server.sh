@@ -20,14 +20,14 @@ mvn -q clean compile || { echo "❌ Erreur lors de la compilation"; exit 1; }
 
 echo ""
 echo "🔧 Démarrage du serveur..."
-echo "   Le serveur recherchera un port disponible à partir de 445"
-echo "   Le port utilisé sera sauvegardé dans port.txt"
+echo "   Configuration RMI: localhost:1099"
 echo ""
 echo "⚠️  NE FERMEZ PAS CETTE FENÊTRE tant que vous utilisez l'application cliente"
 echo ""
 echo "═══════════════════════════════════════════════════════"
 echo ""
 
-# Lancer le serveur (invocation fully-qualified du plugin exec)
+# Lancer le serveur avec la configuration RMI pour localhost
 mvn -q org.codehaus.mojo:exec-maven-plugin:3.5.0:java \
-  -Dexec.mainClass="com.example.demo.server.ServerLauncher"
+  -Dexec.mainClass="com.example.demo.server.ServerLauncher" \
+  -Djava.rmi.server.hostname=localhost

@@ -131,15 +131,18 @@ public class ServiceIndisponibleController {
     }
 
     /**
-     * Retourne au menu principal une fois la connexion rétablie
+     * Retourne à la page de connexion une fois la connexion rétablie
      */
     private void retournerAuMenuPrincipal() {
         if (checkTimeline != null) {
             checkTimeline.stop();
         }
 
-        // Rediriger vers le menu principal
-        NavigationHelper.navigateTo("main-menu.fxml", "Menu Principal - Annuaire INF1010",
+        // Déconnecter l'utilisateur pour sécurité
+        com.example.demo.util.SessionManager.getInstance().deconnecter();
+
+        // Rediriger vers la page de connexion
+        NavigationHelper.navigateTo("login.fxml", "Connexion - Annuaire INF1010",
                                     messageLabel);
     }
 
