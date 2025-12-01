@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane stylesheets="@modern-style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.DetailsMembreController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: white; -fx-padding: 25px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onRetourClicked" text="← Retour au menu" style="-fx-background-color: #757575; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 25px; -fx-padding: 10px 20px; -fx-cursor: hand;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <VBox spacing="8.0">
+               <children>
+                  <Label text="👁️ Profil Détaillé" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #1976D2;">
+                     <font>
+                        <Font name="System Bold" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label text="Consultez toutes les informations du membre sélectionné" style="-fx-text-fill: #757575; -fx-font-size: 14px;" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
+
+   <center>
+      <ScrollPane fitToWidth="true" style="-fx-background-color: #f8f9fa; -fx-background: #f8f9fa;">
+         <content>
+            <VBox spacing="25.0" style="-fx-padding: 30px;">
+               <children>
+                  <!-- Section Informations personnelles -->
+                  <VBox spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12px; -fx-padding: 25px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="👤" style="-fx-font-size: 20px;" />
+                              <Label text="Informations personnelles" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1976D2;">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Separator style="-fx-background-color: #e9ecef;" />
+
+                        <GridPane hgap="20.0" vgap="15.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Nom :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" GridPane.rowIndex="0" />
+                              <Label fx:id="nomLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                              <Label text="Prénom :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" GridPane.rowIndex="1" />
+                              <Label fx:id="prenomLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                              <Label text="Catégorie :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" GridPane.rowIndex="2" />
+                              <Label fx:id="categorieLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                              <Label fx:id="matriculeTitleLabel" text="Matricule :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" visible="false" GridPane.rowIndex="3" />
+                              <Label fx:id="matriculeLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+
+                  <!-- Section Coordonnées -->
+                  <VBox spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12px; -fx-padding: 25px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="📞" style="-fx-font-size: 20px;" />
+                              <Label text="Coordonnées" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1976D2;">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Separator style="-fx-background-color: #e9ecef;" />
+
+                        <GridPane hgap="20.0" vgap="15.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Courriel :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" GridPane.rowIndex="0" />
+                              <Label fx:id="courrielLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                              <Label fx:id="telephoneTitleLabel" text="Téléphone :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" visible="false" GridPane.rowIndex="1" />
+                              <Label fx:id="telephoneLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px;" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+
+                  <!-- Section Informations professionnelles -->
+                  <VBox spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 12px; -fx-padding: 25px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 2);">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label text="💼" style="-fx-font-size: 20px;" />
+                              <Label text="Informations professionnelles" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1976D2;">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Separator style="-fx-background-color: #e9ecef;" />
+
+                        <GridPane hgap="20.0" vgap="15.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="180.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Domaine d'activité :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" GridPane.rowIndex="0" />
+                              <Label fx:id="domaineLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                              <Label text="Informations supplémentaires :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" GridPane.rowIndex="1" />
+                              <TextArea fx:id="informationsTextArea" editable="false" prefHeight="80.0" wrapText="true" style="-fx-background-color: #f8f9fa; -fx-border-color: #dee2e6; -fx-border-width: 1px; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-padding: 10px; -fx-font-size: 14px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                              <Label text="Statut :" style="-fx-text-fill: #424242; -fx-font-weight: 600; -fx-font-size: 14px;" GridPane.rowIndex="2" />
+                              <Label fx:id="statutLabel" text="-" style="-fx-text-fill: #212529; -fx-font-size: 14px; -fx-font-weight: 600;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+
+   <bottom>
+      <HBox alignment="CENTER" spacing="25.0" style="-fx-background-color: white; -fx-padding: 25px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, -2); -fx-border-color: #e9ecef; -fx-border-width: 1 0 0 0;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onModifierClicked" text="✏️ Modifier" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: 500; -fx-background-radius: 10px; -fx-padding: 15px 25px; -fx-cursor: hand; -fx-font-size: 14px;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onSupprimerClicked" text="🗑️ Supprimer" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: 500; -fx-background-radius: 10px; -fx-padding: 15px 25px; -fx-cursor: hand; -fx-font-size: 14px;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="listeRougeButton" mnemonicParsing="false" onAction="#onListeRougeClicked" text="🚫 Ajouter à la liste rouge" style="-fx-background-color: #fd7e14; -fx-text-fill: white; -fx-font-weight: 500; -fx-background-radius: 10px; -fx-padding: 15px 25px; -fx-cursor: hand; -fx-font-size: 14px;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

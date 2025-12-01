@@ -1,0 +1,502 @@
+package com.example.demo;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+
+import Entite.Personne;
+import com.example.demo.service.PersonneService;
+import com.example.demo.service.ConnexionService;
+import CategorieEnum.Categorie;
+import com.example.demo.util.DataTransfer;
+import com.example.demo.util.SessionManager;
+import com.example.demo.util.AuthorizationManager;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class RechercheMembreController {
+
+    @FXML
+    private ComboBox<String> typeRechercheComboBox;
+
+    @FXML
+    private Label labelRecherche;
+
+    @FXML
+    private TextField rechercheTextField;
+
+    @FXML
+    private Label resultatsLabel;
+
+    @FXML
+    private TableView<Personne> resultatsTableView;
+
+    @FXML
+    private TableColumn<Personne, String> nomColumn;
+
+    @FXML
+    private TableColumn<Personne, String> prenomColumn;
+
+    @FXML
+    private TableColumn<Personne, String> categorieColumn;
+
+    @FXML
+    private TableColumn<Personne, String> matriculeColumn;
+
+    @FXML
+    private TableColumn<Personne, String> courrielColumn;
+
+    @FXML
+    private TableColumn<Personne, String> telephoneColumn;
+
+    @FXML
+    private TableColumn<Personne, String> domaineColumn;
+
+    @FXML
+    private TableColumn<Personne, String> statutColumn;
+
+    // Boutons d'action - pour appliquer les restrictions d'accès
+    @FXML
+    private Button voirDetailsButton;
+
+    @FXML
+    private Button modifierButton;
+
+    @FXML
+    private Button supprimerButton;
+
+    // Service pour accéder aux données
+    private PersonneService personneService;
+    private ConnexionService connexionService;
+    private ObservableList<Personne> resultatsData;
+    private List<Personne> tousLesMembres; // Cache pour la recherche locale
+
+    @FXML
+    private void initialize() {
+        // Vérifier l'état de connexion de l'utilisateur
+        if (!verifierEtatConnexion()) {
+            return; // Ne pas continuer l'initialisation si l'utilisateur n'est pas autorisé
+        }
+
+        // Initialiser les services
+        personneService = new PersonneService();
+        connexionService = new ConnexionService();
+        resultatsData = FXCollections.observableArrayList();
+
+        // Appliquer les restrictions d'accès selon le rôle de l'utilisateur
+        applyAccessRestrictions();
+
+        // Configurer les ComboBoxes et le tableau
+        setupTypeRechercheComboBox();
+        setupTableColumns();
+
+        // Charger tous les membres pour la recherche
+        chargerTousLesMembres();
+
+        resultatsLabel.setText("Aucune recherche effectuée");
+    }
+
+    /**
+     * Vérifie si l'utilisateur actuel est toujours connecté et autorisé
+     */
+    private boolean verifierEtatConnexion() {
+        // Vérifier si l'utilisateur est connecté dans la session
+        if (!SessionManager.getInstance().isConnecte()) {
+            redirectToLogin();
+            return false;
+        }
+
+        // Vérifier l'état de connexion dans la base de données
+        Personne utilisateurConnecte = SessionManager.getInstance().getUtilisateurConnecte();
+        if (utilisateurConnecte != null) {
+            ConnexionService connexionService = new ConnexionService();
+            if (!connexionService.verifierEtatConnexion(utilisateurConnecte.getId())) {
+                // L'utilisateur a été déconnecté ailleurs, déconnecter la session locale
+                SessionManager.getInstance().deconnecter();
+                showAlert("Session expirée", "Votre session a expiré ou vous avez été déconnecté depuis un autre appareil.", Alert.AlertType.WARNING);
+                redirectToLogin();
+                return false;
+            }
+        }
+
+        // Vérifier les autorisations d'accès à cette fonctionnalité
+        if (!AuthorizationManager.getInstance().canAccessSearch()) {
+            showAlert("Accès refusé", "Vous n'avez pas l'autorisation d'accéder à cette fonctionnalité.", Alert.AlertType.ERROR);
+            redirectToMainMenu();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void redirectToLogin() {
+        NavigationHelper.navigateTo("login.fxml", "Connexion - Annuaire INF1010", rechercheTextField);
+    }
+
+    private void redirectToMainMenu() {
+        NavigationHelper.navigateTo("main-menu.fxml", "Menu Principal - Annuaire INF1010", rechercheTextField);
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void setupTypeRechercheComboBox() {
+        typeRechercheComboBox.setItems(FXCollections.observableArrayList(
+            "Par nom/prénom",
+            "Par courriel",
+            "Par matricule",
+            "Par téléphone",
+            "Par domaine"
+        ));
+        typeRechercheComboBox.getSelectionModel().selectFirst();
+        onTypeRechercheChanged(null);
+    }
+
+    private void setupTableColumns() {
+        // Configuration des colonnes avec les propriétés de l'entité Personne
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        categorieColumn.setCellValueFactory(cellData -> {
+            Personne personne = cellData.getValue();
+            return new javafx.beans.property.SimpleStringProperty(
+                personneService.categorieToString(personne.getCategorie())
+            );
+        });
+        matriculeColumn.setCellValueFactory(new PropertyValueFactory<>("matricule"));
+        courrielColumn.setCellValueFactory(new PropertyValueFactory<>("adresseCourriel"));
+        telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telephone"));
+        domaineColumn.setCellValueFactory(new PropertyValueFactory<>("domaineActivite"));
+        statutColumn.setCellValueFactory(cellData -> {
+            Personne personne = cellData.getValue();
+            return new javafx.beans.property.SimpleStringProperty(
+                personne.isListeRouge() ? "Liste Rouge" : "Actif"
+            );
+        });
+
+        // Ajouter le style visuel pour les membres en liste rouge
+        resultatsTableView.setRowFactory(tv -> {
+            TableRow<Personne> row = new TableRow<>();
+            row.itemProperty().addListener((obs, oldItem, newItem) -> {
+                if (newItem != null && newItem.isListeRouge()) {
+                    // Style pour les membres en liste rouge dans les résultats de recherche
+                    row.setStyle("-fx-background-color: #ffebee; -fx-border-color: #ef5350; -fx-border-width: 0 0 0 4px;");
+                } else {
+                    // Style normal
+                    row.setStyle("");
+                }
+            });
+            return row;
+        });
+
+        // Lier les données au tableau
+        resultatsTableView.setItems(resultatsData);
+    }
+
+    private void chargerTousLesMembres() {
+        try {
+            tousLesMembres = personneService.getAllMembres();
+        } catch (Exception e) {
+            showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + e.getMessage());
+            tousLesMembres = FXCollections.observableArrayList();
+        }
+    }
+
+    @FXML
+    private void onRetourClicked(ActionEvent event) {
+        NavigationHelper.navigateTo("main-menu.fxml", "Menu Principal", (Node) event.getSource());
+    }
+
+    @FXML
+    private void onTypeRechercheChanged(ActionEvent event) {
+        String selectedType = typeRechercheComboBox.getSelectionModel().getSelectedItem();
+
+        if (selectedType != null) {
+            switch (selectedType) {
+                case "Par nom/prénom":
+                    labelRecherche.setText("Nom ou prénom :");
+                    rechercheTextField.setPromptText("Entrez le nom ou prénom...");
+                    break;
+                case "Par courriel":
+                    labelRecherche.setText("Adresse courriel :");
+                    rechercheTextField.setPromptText("Entrez l'adresse courriel...");
+                    break;
+                case "Par matricule":
+                    labelRecherche.setText("Matricule :");
+                    rechercheTextField.setPromptText("Entrez le matricule...");
+                    break;
+                case "Par téléphone":
+                    labelRecherche.setText("Téléphone :");
+                    rechercheTextField.setPromptText("Entrez le numéro de téléphone...");
+                    break;
+                case "Par domaine":
+                    labelRecherche.setText("Domaine d'activité :");
+                    rechercheTextField.setPromptText("Entrez le domaine d'activité...");
+                    break;
+                default:
+                    labelRecherche.setText("Recherche :");
+                    rechercheTextField.setPromptText("Entrez votre recherche...");
+                    break;
+            }
+        }
+
+        // Vider les résultats quand on change le type
+        clearResults();
+    }
+
+    @FXML
+    private void onRechercherClicked(ActionEvent event) {
+        effectuerRecherche();
+    }
+
+    /**
+     * Méthode appelée quand l'utilisateur clique sur le bouton "Effacer"
+     * Vide le champ de recherche et efface les résultats
+     */
+    @FXML
+    private void onEffacerClicked(ActionEvent event) {
+        rechercheTextField.clear();
+        clearResults();
+    }
+
+    /**
+     * Méthode appelée quand une touche est pressée dans le champ de recherche
+     * Déclenche la recherche si l'utilisateur appuie sur Entrée
+     */
+    @FXML
+    private void onRechercheKeyPressed(KeyEvent event) {
+        if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+            effectuerRecherche();
+        }
+    }
+
+    @FXML
+    private void onRechercheTextChanged(KeyEvent event) {
+        // Recherche en temps réel (optionnel)
+        if (rechercheTextField.getText().trim().length() >= 2) {
+            effectuerRecherche();
+        } else if (rechercheTextField.getText().trim().isEmpty()) {
+            clearResults();
+        }
+    }
+
+    private void effectuerRecherche() {
+        String termRecherche = rechercheTextField.getText().trim();
+        if (termRecherche.isEmpty()) {
+            clearResults();
+            return;
+        }
+
+        String typeRecherche = typeRechercheComboBox.getSelectionModel().getSelectedItem();
+        List<Personne> resultats = FXCollections.observableArrayList();
+
+        try {
+            switch (typeRecherche) {
+                case "Par nom/prénom":
+                    resultats = tousLesMembres.stream()
+                        .filter(p -> (p.getNom() != null && p.getNom().toLowerCase().contains(termRecherche.toLowerCase())) ||
+                                   (p.getPrenom() != null && p.getPrenom().toLowerCase().contains(termRecherche.toLowerCase())))
+                        .collect(Collectors.toList());
+                    break;
+
+                case "Par courriel":
+                    resultats = tousLesMembres.stream()
+                        .filter(p -> p.getAdresseCourriel() != null &&
+                                   p.getAdresseCourriel().toLowerCase().contains(termRecherche.toLowerCase()))
+                        .collect(Collectors.toList());
+                    break;
+
+                case "Par matricule":
+                    resultats = tousLesMembres.stream()
+                        .filter(p -> p.getMatricule() != null &&
+                                   p.getMatricule().toLowerCase().contains(termRecherche.toLowerCase()))
+                        .collect(Collectors.toList());
+                    break;
+
+                case "Par téléphone":
+                    resultats = tousLesMembres.stream()
+                        .filter(p -> p.getTelephone() != null &&
+                                   p.getTelephone().contains(termRecherche))
+                        .collect(Collectors.toList());
+                    break;
+
+                case "Par domaine":
+                    resultats = tousLesMembres.stream()
+                        .filter(p -> p.getDomaineActivite() != null &&
+                                   p.getDomaineActivite().toLowerCase().contains(termRecherche.toLowerCase()))
+                        .collect(Collectors.toList());
+                    break;
+
+                default:
+                    // Recherche globale dans tous les champs
+                    resultats = tousLesMembres.stream()
+                        .filter(p -> contientTerme(p, termRecherche))
+                        .collect(Collectors.toList());
+                    break;
+            }
+
+            // Afficher les résultats
+            resultatsData.clear();
+            resultatsData.addAll(resultats);
+
+            if (resultats.isEmpty()) {
+                resultatsLabel.setText("Aucun résultat trouvé pour '" + termRecherche + "'");
+            } else {
+                resultatsLabel.setText(resultats.size() + " résultat(s) trouvé(s) pour '" + termRecherche + "'");
+            }
+
+        } catch (Exception e) {
+            showErrorMessage("Erreur de recherche", "Erreur lors de la recherche : " + e.getMessage());
+        }
+    }
+
+    private boolean contientTerme(Personne personne, String terme) {
+        String termeMin = terme.toLowerCase();
+        return (personne.getNom() != null && personne.getNom().toLowerCase().contains(termeMin)) ||
+               (personne.getPrenom() != null && personne.getPrenom().toLowerCase().contains(termeMin)) ||
+               (personne.getAdresseCourriel() != null && personne.getAdresseCourriel().toLowerCase().contains(termeMin)) ||
+               (personne.getMatricule() != null && personne.getMatricule().toLowerCase().contains(termeMin)) ||
+               (personne.getTelephone() != null && personne.getTelephone().contains(terme)) ||
+               (personne.getDomaineActivite() != null && personne.getDomaineActivite().toLowerCase().contains(termeMin));
+    }
+
+    private void clearResults() {
+        resultatsData.clear();
+        resultatsLabel.setText("Aucune recherche effectuée");
+    }
+
+    @FXML
+    private void onVoirDetailsClicked(ActionEvent event) {
+        Personne selectedMembre = resultatsTableView.getSelectionModel().getSelectedItem();
+        if (selectedMembre == null) {
+            showWarningMessage("Aucune sélection", "Veuillez sélectionner un membre pour voir ses détails.");
+            return;
+        }
+
+        // Afficher les détails dans une boîte de dialogue
+        showInfoMessage("Détails du membre",
+            "Nom: " + selectedMembre.getNom() + "\n" +
+            "Prénom: " + selectedMembre.getPrenom() + "\n" +
+            "Catégorie: " + personneService.categorieToString(selectedMembre.getCategorie()) + "\n" +
+            "Email: " + selectedMembre.getAdresseCourriel() + "\n" +
+            "Téléphone: " + (selectedMembre.getTelephone() != null ? selectedMembre.getTelephone() : "N/A") + "\n" +
+            "Matricule: " + (selectedMembre.getMatricule() != null ? selectedMembre.getMatricule() : "N/A") + "\n" +
+            "Domaine: " + (selectedMembre.getDomaineActivite() != null ? selectedMembre.getDomaineActivite() : "N/A") + "\n" +
+            "Statut: " + (selectedMembre.isListeRouge() ? "Liste Rouge" : "Actif"));
+    }
+
+    @FXML
+    private void onModifierClicked(ActionEvent event) {
+        Personne selectedMembre = resultatsTableView.getSelectionModel().getSelectedItem();
+        if (selectedMembre == null) {
+            showWarningMessage("Aucune sélection", "Veuillez sélectionner un membre à modifier.");
+            return;
+        }
+
+        // Utiliser le système DataTransfer pour passer les données du membre à modifier
+        DataTransfer.setMembreAModifier(selectedMembre);
+        NavigationHelper.navigateTo("ajouter-modifier-membre.fxml", "Modifier un membre", (Node) event.getSource());
+    }
+
+    /**
+     * Méthode appelée quand l'utilisateur clique sur le bouton "Supprimer"
+     * Supprime le membre sélectionné après confirmation
+     */
+    @FXML
+    private void onSupprimerClicked(ActionEvent event) {
+        Personne selectedMembre = resultatsTableView.getSelectionModel().getSelectedItem();
+        if (selectedMembre == null) {
+            showWarningMessage("Aucune sélection", "Veuillez sélectionner un membre à supprimer.");
+            return;
+        }
+
+        // Demander confirmation avant suppression
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirmation de suppression");
+        confirmAlert.setHeaderText("Supprimer le membre");
+        confirmAlert.setContentText("Êtes-vous sûr de vouloir supprimer " +
+                                   selectedMembre.getPrenom() + " " + selectedMembre.getNom() + " ?");
+
+        if (confirmAlert.showAndWait().get() == ButtonType.OK) {
+            try {
+                boolean success = personneService.supprimerMembre(selectedMembre);
+                if (success) {
+                    showInfoMessage("Suppression réussie", "Le membre a été supprimé avec succès!");
+                    // Actualiser la liste et refaire la recherche
+                    chargerTousLesMembres();
+                    if (!rechercheTextField.getText().trim().isEmpty()) {
+                        effectuerRecherche();
+                    }
+                } else {
+                    showErrorMessage("Erreur de suppression", "Impossible de supprimer le membre.");
+                }
+            } catch (Exception e) {
+                showErrorMessage("Erreur", "Une erreur s'est produite lors de la suppression : " + e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void onActualiserClicked(ActionEvent event) {
+        chargerTousLesMembres();
+        showInfoMessage("Actualisation", "Données actualisées.");
+        if (!rechercheTextField.getText().trim().isEmpty()) {
+            effectuerRecherche(); // Refaire la recherche si il y avait des termes
+        }
+    }
+
+    private void showInfoMessage(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showWarningMessage(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showErrorMessage(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void applyAccessRestrictions() {
+        AuthorizationManager authManager = AuthorizationManager.getInstance();
+
+        // Seuls les administrateurs peuvent modifier et supprimer
+        boolean isAdmin = authManager.isAdministrator();
+
+        if (modifierButton != null) {
+            modifierButton.setDisable(!isAdmin);
+            if (!isAdmin) {
+                modifierButton.setStyle("-fx-background-color: #cccccc; -fx-text-fill: #666666; -fx-opacity: 0.6;");
+            }
+        }
+
+        if (supprimerButton != null) {
+            supprimerButton.setDisable(!isAdmin);
+            if (!isAdmin) {
+                supprimerButton.setStyle("-fx-background-color: #cccccc; -fx-text-fill: #666666; -fx-opacity: 0.6;");
+            }
+        }
+    }
+}
