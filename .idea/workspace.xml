@@ -5,93 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d668fcc-7121-42a6-8ae2-c39700c9293b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AjouterModifierMembreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/AjouterModifierMembreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeMembresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeMembresController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeProfesseursController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeProfesseursController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/NavigationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/NavigationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/server/GestionnaireClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/server/GestionnaireClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/ajouter-modifier-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/ajouter-modifier-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-membres.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-membres.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-professeurs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-professeurs.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/main-menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/main-menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/recherche-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/recherche-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/copilotDiffState.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/AjouterModifierMembreController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/AjouterModifierMembreController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/DetailsMembreController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/DetailsMembreController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/HelloApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/HelloApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/HelloController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Launcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/Launcher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeMembresController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ListeMembresController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeProfesseursController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ListeProfesseursController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeRougeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ListeRougeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/MainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/MainMenuController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/NavigationHelper$WindowState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/NavigationHelper$WindowState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/NavigationHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/NavigationHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/RechercheMembreController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/RechercheMembreController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ajouter-modifier-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ajouter-modifier-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/liste-membres.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/liste-membres.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/liste-professeurs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/liste-professeurs.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/main-menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/main-menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/recherche-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/recherche-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/demo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/ajouter-modifier-membre.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/details-membre.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/liste-membres.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/liste-professeurs.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/liste-rouge.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/login.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/main-menu.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/modern-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/src/main/resources/com/example/demo/recherche-membre.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/ajouter-modifier-membre.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/details-membre.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/liste-membres.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/liste-professeurs.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/liste-rouge.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/login.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/main-menu.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/modern-style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/src/main/resources/com/example/demo/recherche-membre.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/CategorieEnum/Categorie.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Entite/Personne.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/AjouterModifierMembreController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/DetailsMembreController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/HelloApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/HelloController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/Launcher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeMembresController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeProfesseursController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeRougeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/MainMenuController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/NavigationHelper$WindowState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/NavigationHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/RechercheMembreController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/UtilisateursConnectesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dao/PersonneDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/dao/PersonneDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/database/DatabaseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/enums/CategorieDisplay.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/enums/DomaineActivite.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/server/GestionnaireClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/server/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/ConnexionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/PersonneService$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/PersonneService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/test/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/util/AuthorizationManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/util/ConnexionValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/util/DataTransfer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/util/SessionManager$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/util/SessionManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/lib/controlsfx-11.2.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/lib/javafx-base-17.0.6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/lib/javafx-controls-17.0.6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/lib/javafx-fxml-17.0.6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/lib/javafx-graphics-17.0.6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/lib/javafx-media-17.0.6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/lib/javafx-swing-17.0.6.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,28 +76,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.DatabaseConnection.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Server.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;SHELLCHECK.PATH&quot;: &quot;/Users/larrylalong/Library/Application Support/JetBrains/IdeaIC2025.2/plugins/Shell Script/shellcheck&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/larrylalong/IdeaProjects/Tp1_inf1010&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.DatabaseConnection.executor": "Run",
+    "Application.HelloApplication.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "Application.Server.executor": "Run",
+    "Application.ServerLauncher.executor": "Run",
+    "Maven.demo [clean,compile].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SHELLCHECK.PATH": "/Users/larrylalong/Library/Application Support/JetBrains/IdeaIC2025.2/plugins/Shell Script/shellcheck",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/larrylalong/IdeaProjects/Tp2_inf1010",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.Launcher">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.demo.Launcher" />
@@ -168,9 +127,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ServerLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.demo.server.ServerLauncher" />
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.demo.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Launcher" />
+        <item itemvalue="Application.ServerLauncher" />
         <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>

@@ -35,7 +35,14 @@ public class GestionnaireClient implements Runnable {
             out.println("END_MENU"); // Marqueur pour indiquer la fin du menu
             while (true) {
                 String request = in.readLine();
-                if (request.equalsIgnoreCase("quit")) {
+
+                // Gestion du PING pour vérification de connexion
+                if (request != null && request.equalsIgnoreCase("PING")) {
+                    out.println("PONG");
+                    continue;
+                }
+
+                if (request == null || request.equalsIgnoreCase("quit")) {
                     out.println("Déconnexion...");
                     break;
                 }

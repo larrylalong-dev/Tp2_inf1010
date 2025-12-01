@@ -11,6 +11,7 @@ module com.example.demo {
     opens com.example.demo.service to javafx.fxml;
     opens com.example.demo.database to javafx.fxml;
     opens com.example.demo.server to javafx.fxml;
+    opens com.example.demo.client to javafx.fxml;
     opens com.example.demo.test to javafx.fxml;
     opens com.example.demo.util to javafx.fxml;
     opens Entite to javafx.fxml;
@@ -21,6 +22,7 @@ module com.example.demo {
     exports com.example.demo.service;
     exports com.example.demo.database;
     exports com.example.demo.server;
+    exports com.example.demo.client;
     exports com.example.demo.test;
     exports com.example.demo.util;
     exports Entite;

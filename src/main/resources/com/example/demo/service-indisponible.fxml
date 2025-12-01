@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.demo.ServiceIndisponibleController"
+      alignment="CENTER" spacing="25" styleClass="root"
+      stylesheets="@modern-style.css">
+
+    <padding>
+        <Insets top="50" right="50" bottom="50" left="50"/>
+    </padding>
+
+    <!-- Icône d'erreur -->
+    <Label style="-fx-font-size: 72px; -fx-text-fill: #e74c3c;">
+        ⚠️
+    </Label>
+
+    <!-- Message principal -->
+    <Label fx:id="messageLabel"
+           text="Service Temporairement Indisponible"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <!-- Détails -->
+    <VBox alignment="CENTER" spacing="10"
+          style="-fx-background-color: #ecf0f1; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label text="Le serveur n'est pas accessible pour le moment."
+               style="-fx-font-size: 16px; -fx-text-fill: #34495e;"/>
+        <Label fx:id="detailsLabel"
+               textAlignment="CENTER"
+               style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+    </VBox>
+
+    <!-- Indicateur de progression -->
+    <ProgressIndicator fx:id="progressIndicator" visible="false"
+                       prefWidth="50" prefHeight="50"/>
+
+    <!-- Statut -->
+    <Label fx:id="statusLabel"
+           text="Vérification automatique en cours..."
+           style="-fx-font-size: 14px; -fx-text-fill: #3498db; -fx-font-style: italic;"/>
+
+    <!-- Boutons d'action -->
+    <HBox alignment="CENTER" spacing="20">
+        <Button fx:id="reessayerButton"
+                text="🔄 Réessayer Maintenant"
+                onAction="#onReessayerClicked"
+                styleClass="primary-button"
+                style="-fx-font-size: 14px; -fx-padding: 12 30;"/>
+
+        <Button fx:id="quitterButton"
+                text="❌ Quitter l'Application"
+                onAction="#onQuitterClicked"
+                styleClass="danger-button"
+                style="-fx-font-size: 14px; -fx-padding: 12 30;"/>
+    </HBox>
+
+    <!-- Informations supplémentaires -->
+    <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20 0 0 0;">
+        <Separator prefWidth="400"/>
+        <Label text="💡 Conseils de dépannage:"
+               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <VBox spacing="5" style="-fx-padding: 10;">
+            <Label text="• Vérifiez que le serveur est démarré (ServerLauncher)"
+                   style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+            <Label text="• Vérifiez que le fichier port.txt existe et contient un port valide"
+                   style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+            <Label text="• Vérifiez qu'aucun pare-feu ne bloque la connexion"
+                   style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+        </VBox>
+    </VBox>
+
+    <!-- Lien retour -->
+    <Button text="← Retour à la connexion"
+            onAction="#onRetourConnexionClicked"
+            styleClass="secondary-button"
+            style="-fx-font-size: 12px;"/>
+
+</VBox>
+

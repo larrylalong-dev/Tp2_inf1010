@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import com.example.demo.util.SessionManager;
 import com.example.demo.util.AuthorizationManager;
+import com.example.demo.util.ServerValidator;
 import com.example.demo.service.ConnexionService;
 
 public class MainMenuController {
@@ -175,6 +176,11 @@ public class MainMenuController {
 
     @FXML
     private void onVoirConnectesClicked(ActionEvent event) {
+        // Vérifier la connexion serveur d'abord
+        if (!ServerValidator.validateServerConnection((Node) event.getSource())) {
+            return;
+        }
+
         if (!AuthorizationManager.getInstance().canViewConnectedUsers()) {
             AuthorizationManager.getInstance().showAccessDeniedMessage();
             return;
