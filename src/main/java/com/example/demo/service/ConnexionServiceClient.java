@@ -70,4 +70,15 @@ public class ConnexionServiceClient {
             return new ArrayList<>();
         }
     }
+
+    /**
+     * Déconnecte tous les utilisateurs (utilisé au démarrage de l'application)
+     */
+    public void deconnecterTousLesUtilisateurs() {
+        try {
+            getStub().deconnecterTousLesUtilisateurs();
+        } catch (RemoteException e) {
+            System.err.println("Erreur lors de la déconnexion de tous les utilisateurs: " + e.getMessage());
+        }
+    }
 }

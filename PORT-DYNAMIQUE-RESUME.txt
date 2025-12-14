@@ -1,0 +1,72 @@
+╔═══════════════════════════════════════════════════════════════╗
+║         🔧 PORT DYNAMIQUE RMI - RÉSUMÉ RAPIDE                ║
+╚═══════════════════════════════════════════════════════════════╝
+
+✅ MODIFICATIONS APPORTÉES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Le serveur essaie automatiquement les ports de 1099 à 1109
+✓ Le port utilisé est sauvegardé dans port.txt
+✓ Le client lit automatiquement le port depuis port.txt
+✓ Plus de conflit si le port 1099 est déjà occupé
+
+📁 FICHIERS MODIFIÉS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. src/main/java/com/example/demo/server/ServerLauncher.java
+   → Ajout de la logique de port dynamique
+   → Sauvegarde du port dans port.txt
+
+2. src/main/java/com/example/demo/client/ServerConnectionManager.java
+   → Lecture du port depuis port.txt
+   → Utilisation du port 1099 par défaut si fichier absent
+
+🚀 UTILISATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Démarrer le serveur:
+   ./start-server.sh
+
+2. Le serveur trouvera automatiquement un port libre
+
+3. Démarrer le client:
+   ./start-client.sh
+
+4. Le client se connectera automatiquement au bon port
+
+🧪 TESTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+./test-port-dynamique.sh
+
+Ce script affiche:
+- Le port actuellement utilisé
+- L'état de tous les ports RMI (1099-1109)
+- Si le serveur est actif
+
+📝 FICHIER port.txt
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Contenu: Un simple numéro de port (ex: 1099, 1100, etc.)
+Localisation: Racine du projet
+Création: Automatique au démarrage du serveur
+Lecture: Automatique au démarrage du client
+
+⚠️ NOTES IMPORTANTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Toujours démarrer le SERVEUR avant le CLIENT
+• Le fichier port.txt doit être accessible
+• Si tous les ports (1099-1109) sont occupés, libérez-en un
+• Le client utilise 1099 par défaut si port.txt est absent
+
+💡 AVANTAGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Flexibilité: Gère automatiquement les conflits de port
+✓ Robustesse: Continue si un port est occupé
+✓ Simplicité: Aucune configuration manuelle requise
+✓ Transparence: Synchronisation automatique serveur/client
+✓ Clarté: Messages informatifs sur le port utilisé
+
+📚 DOCUMENTATION COMPLÈTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Consultez PORT-DYNAMIQUE-INFO.md pour plus de détails
+
+╔═══════════════════════════════════════════════════════════════╗
+║  Tout est prêt! Lancez le serveur puis le client normalement ║
+╚═══════════════════════════════════════════════════════════════╝
+

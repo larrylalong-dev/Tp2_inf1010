@@ -258,16 +258,29 @@ public class ListeMembresController {
     }
 
     private void chargerTousLesMembres() {
-        try {
-            List<Personne> membres = annuaireService.getAllMembres();
+        // Charger les données en arrière-plan pour ne pas bloquer l'interface
+        javafx.concurrent.Task<List<Personne>> loadTask = new javafx.concurrent.Task<>() {
+            @Override
+            protected List<Personne> call() throws Exception {
+                return annuaireService.getAllMembres();
+            }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            List<Personne> membres = loadTask.getValue();
             tousLesMembres = FXCollections.observableArrayList(membres);
             membresData.clear();
             membresData.addAll(tousLesMembres);
             updateLabels("Tous les membres", tousLesMembres.size());
-        } catch (Exception e) {
-            showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + e.getMessage());
+        });
+
+        loadTask.setOnFailed(e -> {
+            Throwable exception = loadTask.getException();
+            showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + exception.getMessage());
             tousLesMembres = FXCollections.observableArrayList();
-        }
+        });
+
+        new Thread(loadTask).start();
     }
 
     private void filtrerParCategorie(String categorieStr) {
@@ -324,17 +337,32 @@ public class ListeMembresController {
     }
 
     private void chargerMembresParCategorie(String categorieStr) {
-        try {
-            Categorie categorie = CategorieUtil.stringToCategorie(categorieStr);
-            if (categorie != null) {
-                List<Personne> membres = annuaireService.getMembresParCategorie(categorie);
-                membresData.clear();
-                membresData.addAll(membres);
-                updateCompteur(membres.size(), categorieStr);
-            }
-        } catch (Exception e) {
-            showErrorMessage("Erreur de filtrage", "Impossible de filtrer par catégorie : " + e.getMessage());
+        Categorie categorie = CategorieUtil.stringToCategorie(categorieStr);
+        if (categorie == null) {
+            return;
         }
+
+        // Charger les données en arrière-plan
+        javafx.concurrent.Task<List<Personne>> loadTask = new javafx.concurrent.Task<>() {
+            @Override
+            protected List<Personne> call() throws Exception {
+                return annuaireService.getMembresParCategorie(categorie);
+            }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            List<Personne> membres = loadTask.getValue();
+            membresData.clear();
+            membresData.addAll(membres);
+            updateCompteur(membres.size(), categorieStr);
+        });
+
+        loadTask.setOnFailed(e -> {
+            Throwable exception = loadTask.getException();
+            showErrorMessage("Erreur de filtrage", "Impossible de filtrer par catégorie : " + exception.getMessage());
+        });
+
+        new Thread(loadTask).start();
     }
 
     private void updateCompteur(int count, String filter) {

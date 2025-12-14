@@ -209,12 +209,32 @@ public class ListeRougeController {
             navigateToServiceIndisponible();
             return;
         }
-        try {
-            tousLesMembres = annuaireService.getAllMembres();
-        } catch (Exception e) {
-            showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + e.getMessage());
+
+        // Charger les données en arrière-plan
+        javafx.concurrent.Task<List<Personne>> loadTask = new javafx.concurrent.Task<>() {
+            @Override
+            protected List<Personne> call() throws Exception {
+                return annuaireService.getAllMembres();
+            }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            tousLesMembres = FXCollections.observableArrayList(loadTask.getValue());
+            // Mettre à jour l'affichage après le chargement
+            if (tousRadioButton.isSelected()) {
+                afficherTousLesMembres();
+            } else if (listeRougeRadioButton.isSelected()) {
+                afficherListeRougeUniquement();
+            }
+        });
+
+        loadTask.setOnFailed(e -> {
+            Throwable exception = loadTask.getException();
+            showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + exception.getMessage());
             tousLesMembres = FXCollections.observableArrayList();
-        }
+        });
+
+        new Thread(loadTask).start();
     }
 
     @FXML

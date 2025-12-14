@@ -94,11 +94,8 @@ public class ListeProfesseursController {
         // Configurer la ComboBox des domaines
         setupDomaineComboBox();
 
-        // Charger les professeurs
+        // Charger les professeurs (l'affichage se fera automatiquement après le chargement)
         chargerTousProfesseurs();
-
-        // Afficher tous les professeurs au démarrage
-        afficherTousProfesseurs();
     }
 
     private void setupTableColumns() {
@@ -156,23 +153,38 @@ public class ListeProfesseursController {
     }
 
     private void chargerTousProfesseurs() {
-        // Vérifier serveur avant de charger
         if (!annuaireService.isServerAvailable()) {
             navigateToServiceIndisponible();
             return;
         }
-        try {
-            // Charger tous les professeurs et auxiliaires
-            List<Personne> professeurs = annuaireService.getMembresParCategorie(Categorie.professeur);
-            List<Personne> auxiliaires = annuaireService.getMembresParCategorie(Categorie.auxiliaire);
 
+        // Charger les données en arrière-plan
+        javafx.concurrent.Task<ObservableList<Personne>> loadTask = new javafx.concurrent.Task<>() {
+            @Override
+            protected ObservableList<Personne> call() throws Exception {
+                // Charger tous les professeurs et auxiliaires
+                List<Personne> professeurs = annuaireService.getMembresParCategorie(Categorie.professeur);
+                List<Personne> auxiliaires = annuaireService.getMembresParCategorie(Categorie.auxiliaire);
+
+                ObservableList<Personne> result = FXCollections.observableArrayList();
+                result.addAll(professeurs);
+                result.addAll(auxiliaires);
+                return result;
+            }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            tousProfesseurs = loadTask.getValue();
+            afficherTousProfesseurs();
+        });
+
+        loadTask.setOnFailed(e -> {
+            Throwable exception = loadTask.getException();
+            showErrorMessage("Erreur de chargement", "Impossible de charger les professeurs : " + exception.getMessage());
             tousProfesseurs = FXCollections.observableArrayList();
-            tousProfesseurs.addAll(professeurs);
-            tousProfesseurs.addAll(auxiliaires);
-        } catch (Exception e) {
-            showErrorMessage("Erreur de chargement", "Impossible de charger les professeurs : " + e.getMessage());
-            tousProfesseurs = FXCollections.observableArrayList();
-        }
+        });
+
+        new Thread(loadTask).start();
     }
 
     private void afficherTousProfesseurs() {

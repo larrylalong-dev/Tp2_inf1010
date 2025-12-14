@@ -4,20 +4,33 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.example.demo.service.ConnexionService;
+import com.example.demo.service.ConnexionServiceClient;
+import com.example.demo.client.ServerConnectionManager;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // Déconnecter tous les utilisateurs au démarrage de l'application
-        try {
-            ConnexionService connexionService = new ConnexionService();
-            connexionService.deconnecterTousLesUtilisateurs();
-            System.out.println("Tous les utilisateurs ont été déconnectés au démarrage de l'application.");
-        } catch (Exception e) {
-            System.err.println("Erreur lors de la déconnexion des utilisateurs au démarrage : " + e.getMessage());
+        // Vérifier la connexion au serveur RMI avant de continuer
+        ServerConnectionManager connectionManager = ServerConnectionManager.getInstance();
+
+        // Tentative de connexion au serveur
+        boolean serverAvailable = connectionManager.connect();
+
+        if (!serverAvailable) {
+            System.err.println("⚠️ ATTENTION: Impossible de se connecter au serveur RMI.");
+            System.err.println("   L'application va démarrer mais les fonctionnalités seront limitées.");
+            System.err.println("   Veuillez démarrer le serveur avec ServerLauncher.java");
+        } else {
+            // Déconnecter tous les utilisateurs au démarrage de l'application via RMI
+            try {
+                ConnexionServiceClient connexionService = new ConnexionServiceClient();
+                connexionService.deconnecterTousLesUtilisateurs();
+                System.out.println("Tous les utilisateurs ont été déconnectés au démarrage de l'application.");
+            } catch (Exception e) {
+                System.err.println("Erreur lors de la déconnexion des utilisateurs au démarrage : " + e.getMessage());
+            }
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader();

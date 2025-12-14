@@ -99,6 +99,11 @@ public class RemoteAnnuaireImpl extends UnicastRemoteObject implements RemoteAnn
     }
 
     @Override
+    public void deconnecterTousLesUtilisateurs() throws RemoteException {
+        connexionService.deconnecterTousLesUtilisateurs();
+    }
+
+    @Override
     public boolean ping() throws RemoteException {
         return true;
     }

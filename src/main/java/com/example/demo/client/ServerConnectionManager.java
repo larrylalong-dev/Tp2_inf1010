@@ -1,5 +1,8 @@
 package com.example.demo.client;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import com.example.demo.server.RemoteAnnuaire;
@@ -11,10 +14,12 @@ public class ServerConnectionManager {
 
     private static ServerConnectionManager instance;
     private String serverHost = "localhost";
-    private int serverPort = 1099; // Port RMI par défaut
+    private int serverPort;
     private RemoteAnnuaire stub;
 
-    private ServerConnectionManager() {}
+    private ServerConnectionManager() {
+        this.serverPort = lirePortDepuisFichier();
+    }
 
     public static ServerConnectionManager getInstance() {
         if (instance == null) {
@@ -74,4 +79,22 @@ public class ServerConnectionManager {
 
     public String getServerHost() { return serverHost; }
     public int getServerPort() { return serverPort; }
+
+    /**
+     * Lit le port depuis le fichier port.txt
+     * Retourne 1099 par défaut si le fichier n'existe pas ou est invalide
+     */
+    private int lirePortDepuisFichier() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("port.txt"))) {
+            String line = reader.readLine();
+            if (line != null && !line.trim().isEmpty()) {
+                int port = Integer.parseInt(line.trim());
+                System.out.println("[CLIENT] Port lu depuis port.txt: " + port);
+                return port;
+            }
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("[CLIENT] Impossible de lire port.txt, utilisation du port par défaut 1099");
+        }
+        return 1099; // Port par défaut
+    }
 }

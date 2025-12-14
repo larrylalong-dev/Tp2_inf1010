@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.service.ServerMonitorService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,18 +51,43 @@ public class LoginController {
             return;
         }
 
-        // Vérifier la disponibilité du serveur avant de continuer
-        if (!annuaireService.isServerAvailable()) {
-            navigateToServiceIndisponible();
-            return;
-        }
+        // Désactiver le bouton pour éviter les doubles clics
+        errorLabel.setVisible(false);
 
-        // Authentification via RMI
-        try {
-            authenticateUser(username, password);
-        } catch (Exception e) {
-            showError("Erreur de connexion : " + e.getMessage());
-        }
+        // Effectuer l'authentification dans un thread séparé pour ne pas bloquer l'UI
+        javafx.concurrent.Task<Boolean> authTask = new javafx.concurrent.Task<>() {
+            @Override
+            protected Boolean call() throws Exception {
+                // Vérifier la disponibilité du serveur avant de continuer
+                if (!annuaireService.isServerAvailable()) {
+                    return null; // null signifie serveur indisponible
+                }
+
+                // Authentification via RMI (dans le thread séparé)
+                return authenticateUser(username, password);
+            }
+        };
+
+        // Gérer le résultat de l'authentification
+        authTask.setOnSucceeded(e -> {
+            Boolean result = authTask.getValue();
+            if (result == null) {
+                // Serveur indisponible
+                navigateToServiceIndisponible();
+            } else if (!result) {
+                // Authentification échouée (message déjà affiché par authenticateUser)
+                // L'erreur est déjà affichée dans authenticateUser
+            }
+            // Si true, la navigation est déjà faite dans authenticateUser
+        });
+
+        authTask.setOnFailed(e -> {
+            Throwable exception = authTask.getException();
+            showError("Erreur de connexion : " + exception.getMessage());
+        });
+
+        // Démarrer le thread d'authentification
+        new Thread(authTask).start();
     }
 
     private boolean authenticateUser(String username, String password) {
@@ -79,9 +105,11 @@ public class LoginController {
 
                     // VÉRIFICATION : Vérifier si l'utilisateur est en liste rouge
                     if (personne.isListeRouge()) {
-                        showError("🚫 Accès refusé : Votre compte a été suspendu.\n" +
-                                "Vous n'avez plus accès à l'application.\n" +
-                                "Si vous pensez qu'il s'agit d'une erreur, contactez l'administrateur.");
+                        javafx.application.Platform.runLater(() ->
+                            showError("🚫 Accès refusé : Votre compte a été suspendu.\n" +
+                                    "Vous n'avez plus accès à l'application.\n" +
+                                    "Si vous pensez qu'il s'agit d'une erreur, contactez l'administrateur.")
+                        );
                         return false;
                     }
 
@@ -97,25 +125,42 @@ public class LoginController {
                         if (connexionReussie) {
                             // Enregistrer l'utilisateur connecté dans la session
                             SessionManager.getInstance().setUtilisateurConnecte(personne);
-                            navigateToMainMenu();
+
+                            // Démarrer la surveillance du serveur
+                            ServerMonitorService.getInstance().startMonitoring(() -> {
+                                // Redirection vers la page de reconnexion en cas de déconnexion
+                                javafx.application.Platform.runLater(() -> {
+                                    navigateToServiceIndisponible();
+                                });
+                            });
+
+                            javafx.application.Platform.runLater(() -> navigateToMainMenu());
                             return true;
                         } else {
-                            showError("Erreur lors de la mise à jour du statut de connexion.");
+                            javafx.application.Platform.runLater(() ->
+                                showError("Erreur lors de la mise à jour du statut de connexion.")
+                            );
                             return false;
                         }
                     } else {
-                        showError("🚫 Accès refusé : Vous n'avez pas les permissions nécessaires pour accéder à cette application.");
+                        javafx.application.Platform.runLater(() ->
+                            showError("🚫 Accès refusé : Vous n'avez pas les permissions nécessaires pour accéder à cette application.")
+                        );
                         return false;
                     }
                 }
             }
 
             // Aucun utilisateur trouvé avec ces identifiants
-            showError("❌ Nom d'utilisateur ou mot de passe incorrect.");
+            javafx.application.Platform.runLater(() ->
+                showError("❌ Nom d'utilisateur ou mot de passe incorrect.")
+            );
             return false;
         } catch (Exception e) {
             System.err.println("Erreur lors de l'authentification: " + e.getMessage());
-            showError("Erreur lors de l'authentification : " + e.getMessage());
+            javafx.application.Platform.runLater(() ->
+                showError("Erreur lors de l'authentification : " + e.getMessage())
+            );
             return false;
         }
     }
@@ -128,6 +173,12 @@ public class LoginController {
     private void navigateToMainMenu() {
         try {
             errorLabel.setVisible(false);
+
+            // Vérification de la disponibilité de la scène
+            if (usernameField == null || usernameField.getScene() == null || usernameField.getScene().getWindow() == null) {
+                showError("Erreur : Impossible de charger le menu principal.");
+                return;
+            }
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
             Parent root = loader.load();
@@ -150,6 +201,12 @@ public class LoginController {
 
     private void navigateToServiceIndisponible() {
         try {
+            // Vérification de la disponibilité de la scène
+            if (usernameField == null || usernameField.getScene() == null || usernameField.getScene().getWindow() == null) {
+                showError("❌ Serveur indisponible. Veuillez démarrer le serveur et réessayer.");
+                return;
+            }
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("service-indisponible.fxml"));
             Parent root = loader.load();
 

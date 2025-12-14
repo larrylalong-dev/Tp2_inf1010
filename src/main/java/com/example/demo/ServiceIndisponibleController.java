@@ -56,8 +56,7 @@ public class ServiceIndisponibleController {
     /**
      * Démarre la vérification automatique de la disponibilité du serveur
      */
-    private void startAutoCheck() {
-        checkTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+    private void startAutoCheck() {checkTimeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
             checkServerAvailability();
         }));
         checkTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -74,8 +73,8 @@ public class ServiceIndisponibleController {
         ServerConnectionManager connectionManager = ServerConnectionManager.getInstance();
 
         if (connectionManager.isServerAvailable()) {
-            statusLabel.setText("✅ Serveur détecté ! Reconnexion...");
-            statusLabel.setStyle("-fx-text-fill: green;");
+            statusLabel.setText("✅ Connexion rétablie ! Redirection...");
+            statusLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold;");
 
             // Arrêter la vérification automatique
             if (checkTimeline != null) {

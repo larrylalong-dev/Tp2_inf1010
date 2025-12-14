@@ -204,12 +204,25 @@ public class RechercheMembreController {
     }
 
     private void chargerTousLesMembres() {
-        try {
-            tousLesMembres = personneService.getAllMembres();
-        } catch (Exception e) {
-            showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + e.getMessage());
+        // Charger les données en arrière-plan
+        javafx.concurrent.Task<List<Personne>> loadTask = new javafx.concurrent.Task<>() {
+            @Override
+            protected List<Personne> call() throws Exception {
+                return personneService.getAllMembres();
+            }
+        };
+
+        loadTask.setOnSucceeded(e -> {
+            tousLesMembres = FXCollections.observableArrayList(loadTask.getValue());
+        });
+
+        loadTask.setOnFailed(e -> {
+            Throwable exception = loadTask.getException();
+            showErrorMessage("Erreur de chargement", "Impossible de charger les membres : " + exception.getMessage());
             tousLesMembres = FXCollections.observableArrayList();
-        }
+        });
+
+        new Thread(loadTask).start();
     }
 
     @FXML

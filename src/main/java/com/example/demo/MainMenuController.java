@@ -10,6 +10,7 @@ import com.example.demo.util.SessionManager;
 import com.example.demo.util.AuthorizationManager;
 import com.example.demo.util.ServerValidator;
 import com.example.demo.service.ConnexionService;
+import com.example.demo.service.ServerMonitorService;
 
 public class MainMenuController {
 
@@ -206,6 +207,9 @@ public class MainMenuController {
 
     @FXML
     private void onDeconnexionClicked(ActionEvent event) {
+        // Arrêter la surveillance du serveur
+        ServerMonitorService.getInstance().stopMonitoring();
+
         // Marquer l'utilisateur comme déconnecté dans la base de données
         if (SessionManager.getInstance().isConnecte()) {
             int idUtilisateur = SessionManager.getInstance().getUtilisateurConnecte().getId();

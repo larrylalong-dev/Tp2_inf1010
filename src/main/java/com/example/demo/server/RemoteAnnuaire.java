@@ -33,6 +33,7 @@ public interface RemoteAnnuaire extends Remote {
     boolean marquerUtilisateurDeconnecte(int idPersonne) throws RemoteException;
     boolean verifierEtatConnexion(int idPersonne) throws RemoteException;
     List<Personne> getUtilisateursConnectes() throws RemoteException;
+    void deconnecterTousLesUtilisateurs() throws RemoteException;
 
     // Santé
     boolean ping() throws RemoteException;
