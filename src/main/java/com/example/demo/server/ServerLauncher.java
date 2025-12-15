@@ -17,7 +17,7 @@ public class ServerLauncher {
 
     public static void main(String[] args) {
         System.out.println("═══════════════════════════════════════════════════════");
-        System.out.println("   🚀 DÉMARRAGE DU SERVEUR ANNUAIRE INF1010");
+        System.out.println("    DÉMARRAGE DU SERVEUR ANNUAIRE INF1010");
         System.out.println("═══════════════════════════════════════════════════════");
 
         try {
@@ -34,16 +34,16 @@ public class ServerLauncher {
                 try {
                     registry = LocateRegistry.createRegistry(port);
                     portUtilise = port;
-                    System.out.println("[RMI] ✅ Registre démarré sur le port " + port);
+                    System.out.println("[RMI]  Registre démarré sur le port " + port);
                     break;
                 } catch (Exception e) {
-                    System.out.println("[RMI] ⚠️  Port " + port + " déjà occupé, essai du port suivant...");
+                    System.out.println("[RMI] ⚠  Port " + port + " déjà occupé, essai du port suivant...");
                 }
             }
 
             // Si aucun port n'est disponible
             if (registry == null) {
-                System.err.println("❌ ERREUR: Impossible de trouver un port disponible entre " +
+                System.err.println(" ERREUR: Impossible de trouver un port disponible entre " +
                                    PORT_DEBUT + " et " + PORT_MAX);
                 System.exit(1);
             }
@@ -57,18 +57,18 @@ public class ServerLauncher {
             System.out.println("[RMI] Service 'AnnuaireService' bindé dans le registre");
 
             System.out.println("═══════════════════════════════════════════════════════");
-            System.out.println("   ✅ SERVEUR RMI PRÊT SUR LE PORT " + portUtilise);
-            System.out.println("   📝 Port sauvegardé dans port.txt");
-            System.out.println("   ⚠️  Laissez cette fenêtre ouverte");
+            System.out.println("    SERVEUR RMI PRÊT SUR LE PORT " + portUtilise);
+            System.out.println("    Port sauvegardé dans port.txt");
+            System.out.println("   Laissez cette fenêtre ouverte");
             System.out.println("═══════════════════════════════════════════════════════");
 
         } catch (IOException e) {
-            System.err.println("❌ ERREUR FATALE lors du démarrage du serveur:");
+            System.err.println(" ERREUR FATALE lors du démarrage du serveur:");
             System.err.println("   " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (Exception e) {
-            System.err.println("❌ ERREUR lors de l'initialisation RMI: " + e.getMessage());
+            System.err.println(" ERREUR lors de l'initialisation RMI: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
@@ -82,7 +82,7 @@ public class ServerLauncher {
             writer.println(port);
             System.out.println("[CONFIG] Port " + port + " sauvegardé dans port.txt");
         } catch (IOException e) {
-            System.err.println("⚠️  Impossible de sauvegarder le port dans port.txt: " + e.getMessage());
+            System.err.println("  Impossible de sauvegarder le port dans port.txt: " + e.getMessage());
         }
     }
 }

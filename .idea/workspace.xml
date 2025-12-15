@@ -6,51 +6,50 @@
   <component name="ChangeListManager">
     <list default="true" id="2d668fcc-7121-42a6-8ae2-c39700c9293b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/port.txt" beforeDir="false" afterPath="$PROJECT_DIR$/port.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeMembresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeMembresController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeProfesseursController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeProfesseursController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceIndisponibleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ServiceIndisponibleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/client/ServerConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/client/ServerConnectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/server/RemoteAnnuaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/server/RemoteAnnuaire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/server/RemoteAnnuaireImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/server/RemoteAnnuaireImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANALYSE-ET-AMELIORATIONS.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/COMMENCEZ-ICI.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/COMMENT-DEMARRER.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/COMPORTEMENT-FINAL-SERVICE-INDISPONIBLE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CORRECTION-BLOCAGE-INTERFACE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CORRECTION-BLOCAGE-RESUME.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CORRECTION-SERIALIZABLE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CORRECTION-SERVEUR-INDISPONIBLE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CORRECTIONS-EFFECTUEES.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DEMARRAGE-RAPIDE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FICHIERS-A-LANCER.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDE-CLIENT-SERVEUR.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDE-DEPANNAGE-RMI.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDE-EXECUTABLES.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUIDE-SIMPLE-EXECUTABLES.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INDEX-DOCUMENTATION.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/INDEX-DOCUMENTATION.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LISEZ-MOI-MAINTENANT.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LISEZMOI-SEPARATION.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MIGRATION-RMI-COMPLETE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MISE-A-JOUR-REDIRECTION.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MODIFICATION-TERMINEE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PORT-DYNAMIQUE-INFO.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PORT-DYNAMIQUE-RESUME.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PROBLEME-RESOLU-FINAL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PROBLEME-RESOLU.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RAPPORT-MIGRATION-RMI.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README-COMPLET.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README-SEPARATION.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESUME-CORRECTION-SERIALIZABLE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESUME-CORRECTIONS-FINALE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESUME-FINAL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RESUME-RAPIDE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TRAVAIL-TERMINE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VERIFICATION-SERVEUR-COMPLETE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VERIFICATION-SERVEUR-FINALE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AjouterModifierMembreController.java.backup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeMembresController.java.backup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeProfesseursController.java.backup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java.backup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java.backup" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java.backup-fix" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/server/ServerLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/server/ServerLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ConnexionServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ConnexionServiceClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/ajouter-modifier-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/ajouter-modifier-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/details-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/details-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-membres.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-membres.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-professeurs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-professeurs.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-rouge.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/liste-rouge.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/main-menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/main-menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/recherche-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/recherche-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/demo/utilisateurs-connectes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/demo/utilisateurs-connectes.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/HelloApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/HelloApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeMembresController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ListeMembresController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeProfesseursController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ListeProfesseursController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeRougeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ListeRougeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/MainMenuController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/MainMenuController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/RechercheMembreController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/RechercheMembreController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceIndisponibleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ServiceIndisponibleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ajouter-modifier-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ajouter-modifier-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/client/ServerConnectionManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/client/ServerConnectionManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/details-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/details-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/liste-membres.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/liste-membres.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/liste-professeurs.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/liste-professeurs.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/liste-rouge.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/liste-rouge.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/main-menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/main-menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/recherche-membre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/recherche-membre.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/server/RemoteAnnuaire.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/server/RemoteAnnuaire.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/server/RemoteAnnuaireImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/server/RemoteAnnuaireImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/server/ServerLauncher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/server/ServerLauncher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/service/ConnexionServiceClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/service/ConnexionServiceClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/utilisateurs-connectes.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/utilisateurs-connectes.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,26 +101,13 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.ServerLauncher">
+  <component name="RunManager" selected="Application.Launcher">
     <configuration name="Launcher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.demo.Launcher" />
       <module name="demo" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.demo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.demo.server.Server" />
-      <module name="demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.demo.server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -144,9 +130,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ServerLauncher" />
         <item itemvalue="Application.Launcher" />
-        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.ServerLauncher" />
       </list>
     </recent_temporary>
   </component>
