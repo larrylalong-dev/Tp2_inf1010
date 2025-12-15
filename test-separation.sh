@@ -7,7 +7,7 @@ echo "║           TEST SÉPARATION CLIENT/SERVEUR                       ║"
 echo "╚════════════════════════════════════════════════════════════════╝"
 echo ""
 
-echo "📋 Vérification des fichiers créés..."
+echo " Vérification des fichiers créés..."
 echo ""
 
 files=(
@@ -29,37 +29,37 @@ found=0
 
 for file in "${files[@]}"; do
     if [ -f "$file" ]; then
-        echo "✅ $file"
+        echo " $file"
         ((found++))
     else
-        echo "❌ $file - MANQUANT"
+        echo " $file - MANQUANT"
         ((missing++))
     fi
 done
 
 echo ""
 echo "─────────────────────────────────────────────────────────────────"
-echo "📊 Résumé: $found fichiers trouvés, $missing fichiers manquants"
+echo " Résumé: $found fichiers trouvés, $missing fichiers manquants"
 echo "─────────────────────────────────────────────────────────────────"
 echo ""
 
 if [ $missing -eq 0 ]; then
-    echo "🎉 Tous les fichiers sont présents !"
+    echo " Tous les fichiers sont présents !"
     echo ""
-    echo "📝 Prochaines étapes:"
+    echo " Prochaines étapes:"
     echo ""
-    echo "1️⃣  Terminal 1 - Démarrer le serveur:"
+    echo "1️  Terminal 1 - Démarrer le serveur:"
     echo "   ./start-server.sh"
     echo ""
-    echo "2️⃣  Terminal 2 - Démarrer le client:"
+    echo "2️  Terminal 2 - Démarrer le client:"
     echo "   ./start-client.sh"
     echo ""
-    echo "📖 Documentation:"
+    echo " Documentation:"
     echo "   cat GUIDE-CLIENT-SERVEUR.md"
     echo "   cat README-SEPARATION.md"
     echo ""
 else
-    echo "⚠️  Certains fichiers sont manquants!"
+    echo "  Certains fichiers sont manquants!"
     echo "   Vérifiez que tous les fichiers ont été créés correctement."
 fi
 

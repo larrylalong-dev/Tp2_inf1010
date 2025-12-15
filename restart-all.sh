@@ -3,7 +3,7 @@
 # Script pour redémarrer complètement le système (nettoie les processus RMI)
 
 echo "═══════════════════════════════════════════════════════"
-echo "   🔄 REDÉMARRAGE COMPLET DU SYSTÈME"
+echo "    REDÉMARRAGE COMPLET DU SYSTÈME"
 echo "═══════════════════════════════════════════════════════"
 echo ""
 
@@ -17,9 +17,9 @@ pkill -f "rmiregistry" 2>/dev/null
 # Attendre que les processus se terminent
 sleep 2
 
-echo "✅ Processus nettoyés"
+echo " Processus nettoyés"
 echo ""
-echo "📝 Instructions:"
+echo " Instructions:"
 echo "   1. Ouvrez un PREMIER terminal et exécutez: ./start-server.sh"
 echo "   2. Attendez que le serveur affiche 'Serveur RMI prêt'"
 echo "   3. Ouvrez un SECOND terminal et exécutez: ./start-client.sh"

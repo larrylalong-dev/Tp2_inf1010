@@ -6,50 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="2d668fcc-7121-42a6-8ae2-c39700c9293b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ANALYSE-ET-AMELIORATIONS.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/COMMENCEZ-ICI.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/COMMENT-DEMARRER.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/COMPORTEMENT-FINAL-SERVICE-INDISPONIBLE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CORRECTION-BLOCAGE-INTERFACE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CORRECTION-BLOCAGE-RESUME.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CORRECTION-SERIALIZABLE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CORRECTION-SERVEUR-INDISPONIBLE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CORRECTIONS-EFFECTUEES.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DEMARRAGE-RAPIDE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FICHIERS-A-LANCER.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDE-CLIENT-SERVEUR.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDE-DEPANNAGE-RMI.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDE-EXECUTABLES.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUIDE-SIMPLE-EXECUTABLES.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/INDEX-DOCUMENTATION.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/INDEX-DOCUMENTATION.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LISEZ-MOI-MAINTENANT.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LISEZMOI-SEPARATION.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MIGRATION-RMI-COMPLETE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MISE-A-JOUR-REDIRECTION.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MODIFICATION-TERMINEE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PORT-DYNAMIQUE-INFO.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PORT-DYNAMIQUE-RESUME.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PROBLEME-RESOLU-FINAL.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PROBLEME-RESOLU.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RAPPORT-MIGRATION-RMI.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README-COMPLET.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README-SEPARATION.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESUME-CORRECTION-SERIALIZABLE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESUME-CORRECTIONS-FINALE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESUME-FINAL.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RESUME-RAPIDE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TRAVAIL-TERMINE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VERIFICATION-SERVEUR-COMPLETE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VERIFICATION-SERVEUR-FINALE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/AjouterModifierMembreController.java.backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeMembresController.java.backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeProfesseursController.java.backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java.backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java.backup" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/RechercheMembreController.java.backup-fix" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/server/ServerLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/server/ServerLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/server/ServerLauncher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/server/ServerLauncher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/COMPORTEMENT-SERVICE-INDISPONIBLE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build-no-modules.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build-no-modules.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fix-javafx-versions.sh" beforeDir="false" afterPath="$PROJECT_DIR$/fix-javafx-versions.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrate-all-controllers.sh" beforeDir="false" afterPath="$PROJECT_DIR$/migrate-all-controllers.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrate-controllers.py" beforeDir="false" afterPath="$PROJECT_DIR$/migrate-controllers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrate-remaining.sh" beforeDir="false" afterPath="$PROJECT_DIR$/migrate-remaining.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prepare-app.sh" beforeDir="false" afterPath="$PROJECT_DIR$/prepare-app.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rapport-du-projet-2-INF1010.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restart-after-fix.sh" beforeDir="false" afterPath="$PROJECT_DIR$/restart-after-fix.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/restart-all.sh" beforeDir="false" afterPath="$PROJECT_DIR$/restart-all.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ListeRougeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-client.bat" beforeDir="false" afterPath="$PROJECT_DIR$/start-client.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-client.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start-client.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-server.bat" beforeDir="false" afterPath="$PROJECT_DIR$/start-server.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start-server.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start-server.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/demo/ListeRougeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/demo/ListeRougeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-corrections.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test-corrections.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-port-dynamique.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test-port-dynamique.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-separation.sh" beforeDir="false" afterPath="$PROJECT_DIR$/test-separation.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

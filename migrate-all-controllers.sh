@@ -3,7 +3,7 @@
 # Script de migration automatique de tous les contrôleurs vers RMI
 
 echo "╔═══════════════════════════════════════════════════════════════╗"
-echo "║   🚀 MIGRATION AUTOMATIQUE DES CONTRÔLEURS VERS RMI          ║"
+echo "║    MIGRATION AUTOMATIQUE DES CONTRÔLEURS VERS RMI          ║"
 echo "╚═══════════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -23,7 +23,7 @@ migrate_controller() {
     local file="$1"
     local filename=$(basename "$file")
 
-    echo "🔄 Migration de $filename..."
+    echo " Migration de $filename..."
 
     # Créer un backup
     cp "$file" "$file.backup"
@@ -52,7 +52,7 @@ import com.example.demo.util.CategorieUtil;
     sed -i '' 's/annuaireService\.categorieToString(/CategorieUtil.categorieToString(/g' "$file"
     sed -i '' 's/annuaireService\.stringToCategorie(/CategorieUtil.stringToCategorie(/g' "$file"
 
-    echo "   ✅ Migration terminée ($filename)"
+    echo "    Migration terminée ($filename)"
 }
 
 # Migrer chaque contrôleur
@@ -61,18 +61,18 @@ for controller in "${CONTROLLERS[@]}"; do
     if [ -f "$filepath" ]; then
         migrate_controller "$filepath"
     else
-        echo "⚠️  Fichier non trouvé: $controller"
+        echo "  Fichier non trouvé: $controller"
     fi
     echo ""
 done
 
 echo "═══════════════════════════════════════════════════════════════"
-echo "✅ Migration automatique terminée!"
+echo " Migration automatique terminée!"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
-echo "📝 Fichiers de backup créés (.backup)"
+echo " Fichiers de backup créés (.backup)"
 echo ""
-echo "⚠️  ATTENTION: Vous devez maintenant:"
+echo "  ATTENTION: Vous devez maintenant:"
 echo "   1. Ajouter la vérification serveur dans initialize() de chaque contrôleur"
 echo "   2. Ajouter navigateToServiceIndisponible() à la fin de chaque contrôleur"
 echo "   3. Recompiler le projet"

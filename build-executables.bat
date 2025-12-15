@@ -2,7 +2,7 @@
 REM Script de génération d'exécutables pour Windows
 REM Annuaire INF1010
 
-echo 🚀 Génération des exécutables Windows pour Annuaire INF1010...
+echo  Génération des exécutables Windows pour Annuaire INF1010...
 
 REM Vérifier que Java 17+ est installé
 echo [ÉTAPE] Vérification de la version Java...
@@ -80,12 +80,12 @@ if errorlevel 1 (
 
 :end
 echo.
-echo 📦 RÉSUMÉ DES EXÉCUTABLES GÉNÉRÉS:
+echo  RÉSUMÉ DES EXÉCUTABLES GÉNÉRÉS:
 echo ==================================
 dir target\executables
 
 echo.
-echo 🎯 INSTRUCTIONS D'UTILISATION:
+echo  INSTRUCTIONS D'UTILISATION:
 echo ==============================
 echo • JAR universel: java -jar target\executables\annuaire-inf1010.jar
 if exist target\executables\AnnuaireINF1010\ (

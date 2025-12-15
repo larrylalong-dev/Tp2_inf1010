@@ -3,7 +3,7 @@
 # Script de génération d'exécutables pour Annuaire INF1010
 # Supporte Windows (.exe), Mac Intel (.app), et JAR universel
 
-echo "🚀 Génération des exécutables pour Annuaire INF1010..."
+echo " Génération des exécutables pour Annuaire INF1010..."
 
 # Couleurs pour l'affichage
 RED='\033[0;31m'
@@ -136,12 +136,12 @@ esac
 
 # Afficher les résultats
 echo ""
-echo "📦 RÉSUMÉ DES EXÉCUTABLES GÉNÉRÉS:"
+echo " RÉSUMÉ DES EXÉCUTABLES GÉNÉRÉS:"
 echo "=================================="
 ls -la target/executables/
 
 echo ""
-echo "🎯 INSTRUCTIONS D'UTILISATION:"
+echo " INSTRUCTIONS D'UTILISATION:"
 echo "=============================="
 echo "• JAR universel (tous OS): java -jar target/executables/annuaire-inf1010.jar"
 if [ -d "target/executables/AnnuaireINF1010.app" ]; then

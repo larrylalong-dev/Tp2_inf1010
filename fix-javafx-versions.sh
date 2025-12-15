@@ -12,7 +12,7 @@ echo ""
 RESOURCES_DIR="src/main/resources/com/example/demo"
 
 if [ ! -d "$RESOURCES_DIR" ]; then
-    echo "❌ Erreur: Le dossier $RESOURCES_DIR n'existe pas"
+    echo " Erreur: Le dossier $RESOURCES_DIR n'existe pas"
     exit 1
 fi
 
@@ -20,7 +20,7 @@ fi
 count=0
 
 # Trouver tous les fichiers FXML
-echo "🔍 Recherche des fichiers FXML à corriger..."
+echo " Recherche des fichiers FXML à corriger..."
 echo ""
 
 for file in "$RESOURCES_DIR"/*.fxml; do
@@ -32,7 +32,7 @@ for file in "$RESOURCES_DIR"/*.fxml; do
            grep -q 'xmlns="http://javafx.com/javafx/21"' "$file" || \
            grep -q 'xmlns="http://javafx.com/javafx/21.0.1"' "$file"; then
 
-            echo "📝 Correction de: $filename"
+            echo " Correction de: $filename"
 
             # Faire une sauvegarde
             cp "$file" "$file.bak"
@@ -46,15 +46,15 @@ for file in "$RESOURCES_DIR"/*.fxml; do
 
             # Vérifier si la modification a réussi
             if grep -q 'xmlns="http://javafx.com/javafx/17.0.6"' "$file"; then
-                echo "   ✅ Corrigé avec succès"
+                echo "    Corrigé avec succès"
                 ((count++))
                 rm "$file.bak"  # Supprimer la sauvegarde
             else
-                echo "   ⚠️  Échec de la correction, restauration de la sauvegarde"
+                echo "     Échec de la correction, restauration de la sauvegarde"
                 mv "$file.bak" "$file"
             fi
         else
-            echo "ℹ️  $filename - Déjà à jour ou pas de version à corriger"
+            echo "  $filename - Déjà à jour ou pas de version à corriger"
         fi
         echo ""
     fi
@@ -62,13 +62,13 @@ done
 
 echo "═══════════════════════════════════════════════════════"
 if [ $count -gt 0 ]; then
-    echo "✅ $count fichier(s) corrigé(s) avec succès"
+    echo " $count fichier(s) corrigé(s) avec succès"
 else
-    echo "ℹ️  Aucun fichier à corriger"
+    echo "  Aucun fichier à corriger"
 fi
 echo "═══════════════════════════════════════════════════════"
 echo ""
-echo "💡 Pour appliquer les changements, recompiler le projet:"
+echo " Pour appliquer les changements, recompiler le projet:"
 echo "   - Dans IntelliJ: Build → Rebuild Project"
 echo "   - En ligne de commande: mvn clean compile"
 echo ""

@@ -91,11 +91,11 @@ public class ListeRougeController {
         // Configurer les boutons d'affichage
         setupAffichageButtons();
 
-        // Charger les données
+        // Charger les données (le callback setOnSucceeded s'occupera de l'affichage)
         chargerTousLesMembres();
 
-        // Afficher tous les membres par défaut
-        afficherTousLesMembres();
+        // Ne pas appeler afficherTousLesMembres() ici car tousLesMembres est encore null
+        // Le callback de chargerTousLesMembres() s'en chargera une fois les données chargées
     }
 
     /**
@@ -247,6 +247,13 @@ public class ListeRougeController {
     }
 
     private void afficherTousLesMembres() {
+        if (tousLesMembres == null) {
+            // Rien à afficher pour le moment (chargement pas encore terminé)
+            membresData.clear();
+            statutLabel.setText("Affichage : Tous les membres (chargement en cours...)");
+            return;
+        }
+
         membresData.clear();
         membresData.addAll(tousLesMembres);
 
@@ -258,6 +265,13 @@ public class ListeRougeController {
     }
 
     private void afficherListeRougeUniquement() {
+        if (tousLesMembres == null) {
+            // Rien à afficher pour le moment (chargement pas encore terminé)
+            membresData.clear();
+            statutLabel.setText("Affichage : Liste rouge (chargement en cours...)");
+            return;
+        }
+
         List<Personne> membresListeRouge = tousLesMembres.stream()
             .filter(Personne::isListeRouge)
             .toList(); // simplification
@@ -284,6 +298,11 @@ public class ListeRougeController {
     }
 
     private void updateInfoLabel() {
+        if (tousLesMembres == null) {
+            infoLabel.setText("Chargement des données en cours...");
+            return;
+        }
+
         long totalMembres = tousLesMembres.size();
         long membresListeRouge = tousLesMembres.stream().mapToLong(p -> p.isListeRouge() ? 1 : 0).sum();
         double pourcentage = totalMembres > 0 ? (membresListeRouge * 100.0 / totalMembres) : 0;

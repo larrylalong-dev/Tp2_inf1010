@@ -218,12 +218,12 @@ fi
 
 # Afficher les résultats
 echo ""
-echo "📦 EXÉCUTABLES GÉNÉRÉS:"
+echo " EXÉCUTABLES GÉNÉRÉS:"
 echo "======================"
 ls -la target/executables/
 
 echo ""
-echo "🎯 COMMENT UTILISER:"
+echo " COMMENT UTILISER:"
 echo "===================="
 echo ""
 echo "1. JAR avec scripts (RECOMMANDÉ):"
@@ -244,7 +244,7 @@ if [ -d "target/executables/AnnuaireINF1010.app" ]; then
     echo ""
 fi
 
-echo "📋 NOTES IMPORTANTES:"
+echo " NOTES IMPORTANTES:"
 echo "====================="
 echo "• Les scripts incluent toutes les dépendances nécessaires"
 echo "• Testez d'abord run-simple.sh/bat si run-annuaire ne fonctionne pas"

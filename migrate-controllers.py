@@ -20,7 +20,7 @@ CONTROLLERS = [
 
 def migrate_controller(filepath):
     """Migre un contrôleur vers RMI"""
-    print(f"\n🔄 Migration de {os.path.basename(filepath)}...")
+    print(f"\n Migration de {os.path.basename(filepath)}...")
 
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -90,20 +90,20 @@ def migrate_controller(filepath):
         backup_path = filepath + '.backup'
         with open(backup_path, 'w', encoding='utf-8') as f:
             f.write(original_content)
-        print(f"   💾 Backup créé: {backup_path}")
+        print(f"    Backup créé: {backup_path}")
 
         # Écrire le fichier migré
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
-        print(f"   ✅ Migration terminée!")
+        print(f"    Migration terminée!")
         return True
     else:
-        print(f"   ℹ️  Aucun changement nécessaire")
+        print(f"     Aucun changement nécessaire")
         return False
 
 def main():
     print("╔═══════════════════════════════════════════════════════════════╗")
-    print("║   🚀 MIGRATION AUTOMATIQUE DES CONTRÔLEURS VERS RMI          ║")
+    print("║    MIGRATION AUTOMATIQUE DES CONTRÔLEURS VERS RMI          ║")
     print("╚═══════════════════════════════════════════════════════════════╝")
 
     migrated = 0
@@ -113,12 +113,12 @@ def main():
             if migrate_controller(filepath):
                 migrated += 1
         else:
-            print(f"⚠️  Fichier non trouvé: {controller}")
+            print(f"  Fichier non trouvé: {controller}")
 
     print(f"\n{'='*65}")
-    print(f"✅ Migration terminée: {migrated}/{len(CONTROLLERS)} fichiers migrés")
+    print(f" Migration terminée: {migrated}/{len(CONTROLLERS)} fichiers migrés")
     print(f"{'='*65}")
-    print("\n📝 Prochaines étapes:")
+    print("\n Prochaines étapes:")
     print("   1. Vérifiez les fichiers .backup si besoin")
     print("   2. Recompilez le projet (Build → Rebuild Project)")
     print("   3. Redémarrez serveur puis client")
